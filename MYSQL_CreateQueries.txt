@@ -1,0 +1,110 @@
+CREATE TABLE LibraryBook
+(
+  School_ID VARCHAR(30) NOT NULL,
+  ISBN VARCHAR(15) NOT NULL,
+  Name INT NOT NULL,
+  Total_Number INT NOT NULL,
+  No_Checked_Out INT NOT NULL,
+  PRIMARY KEY (School_ID, ISBN)
+);
+
+CREATE TABLE Teacher
+(
+  ID VARCHAR(20) NOT NULL,
+  StaffUserID  CHAR(10) NOT NULL,
+  Password VARCHAR(30) NOT NULL,
+  First_Name VARCHAR(30) NOT NULL,
+  Middle_Name VARCHAR(30),
+  Last_Name VARCHAR(30) NOT NULL,
+  PRIMARY KEY (StaffUserID ),
+  UNIQUE (ID)
+);
+
+CREATE TABLE Semester
+(
+  Year INT NOT NULL,
+  FallSpringSummer VARCHAR(30) NOT NULL,
+  SemesterID VARCHAR(10) NOT NULL,
+  PRIMARY KEY (SemesterID)
+);
+
+CREATE TABLE Admin
+(
+  Admin_ID VARCHAR(30) NOT NULL,
+  Password VARCHAR(30) NOT NULL,
+  PRIMARY KEY (Admin_ID)
+);
+
+CREATE TABLE Student
+(
+  Student_ID  VARCHAR(10) NOT NULL,
+  Password VARCHAR(30) NOT NULL,
+  First_Name VARCHAR(30) NOT NULL,
+  Last_Name VARCHAR(30) NOT NULL,
+  Middle_Name VARCHAR(30),
+  StaffUserID  CHAR(10) NOT NULL,
+  PRIMARY KEY (Student_ID ),
+  FOREIGN KEY (StaffUserID ) REFERENCES Teacher(StaffUserID )
+);
+
+CREATE TABLE ParentGuardian
+(
+  ParentGuardian_ID  CHAR(10) NOT NULL,
+  First_Name VARCHAR(30) NOT NULL,
+  Last_Name VARCHAR(30) NOT NULL,
+  Middle_Name VARCHAR(30),
+  Password VARCHAR(30) NOT NULL,
+  Student_ID  VARCHAR(10) NOT NULL,
+  PRIMARY KEY (ParentGuardian_ID ),
+  FOREIGN KEY (Student_ID ) REFERENCES Student(Student_ID )
+);
+
+CREATE TABLE Class
+(
+  Course_Number VARCHAR(30) NOT NULL,
+  Name VARCHAR(30) NOT NULL,
+  SemesterID VARCHAR(10) NOT NULL,
+  ID CHAR(10) NOT NULL,
+  PRIMARY KEY (Course_Number),
+  FOREIGN KEY (SemesterID) REFERENCES Semester(SemesterID),
+  FOREIGN KEY (ID) REFERENCES Teacher(StaffUserID )
+);
+
+CREATE TABLE CheckedOutBooks
+(
+  Name VARCHAR(50) NOT NULL,
+  School_ID VARCHAR(30) NOT NULL,
+  ISBN VARCHAR(15) NOT NULL,
+  Student_ID  VARCHAR(10) NOT NULL,
+  PRIMARY KEY (School_ID, ISBN),
+  FOREIGN KEY (Student_ID ) REFERENCES Student(Student_ID )
+);
+
+CREATE TABLE Takes
+(
+  Student_ID  VARCHAR(10) NOT NULL,
+  Course_Number VARCHAR(30) NOT NULL,
+  PRIMARY KEY (Student_ID , Course_Number),
+  FOREIGN KEY (Student_ID ) REFERENCES Student(Student_ID ),
+  FOREIGN KEY (Course_Number) REFERENCES Class(Course_Number)
+);
+
+CREATE TABLE Requires
+(
+  Course_Number VARCHAR(30) NOT NULL,
+  School_ID VARCHAR(30) NOT NULL,
+  ISBN VARCHAR(15) NOT NULL,
+  PRIMARY KEY (Course_Number, School_ID, ISBN),
+  FOREIGN KEY (Course_Number) REFERENCES Class(Course_Number),
+  FOREIGN KEY (School_ID, ISBN) REFERENCES LibraryBook(School_ID, ISBN)
+);
+
+CREATE TABLE Request
+(
+  Student_ID  VARCHAR(10) NOT NULL,
+  School_ID VARCHAR(30) NOT NULL,
+  ISBN VARCHAR(15) NOT NULL,
+  PRIMARY KEY (Student_ID , School_ID, ISBN),
+  FOREIGN KEY (Student_ID ) REFERENCES Student(Student_ID ),
+  FOREIGN KEY (School_ID, ISBN) REFERENCES LibraryBook(School_ID, ISBN)
+);
