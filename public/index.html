@@ -1,0 +1,30 @@
+
+<html>
+	<head>
+		<title> Home - Mete Morris </title>
+		<link href="Styles/style2.css" rel = "stylesheet" />
+		<link rel="icon" href="Images/m.png">
+    <script src="Scripts/alert.js"></script>
+    <script src="Scripts/jquery-3.1.1.js"></script>
+    <script>
+    var getAdmin = function(){
+      alert("hello");
+      $.get(
+        "/admin",
+        {},
+        function(data){
+          alert("you haked meh"+JSON.stringify(data));
+        }
+      )
+    }
+    </script>
+	</head>
+	<body>
+		<button name="Get Admin Info" onclick="getAdmin()">Get admin </button>
+
+
+		</table>
+
+
+	</body>
+</html>
