@@ -15,12 +15,21 @@
           alert(JSON.stringify(data));
         }
       )
+
+      $.post(
+        "/admin",
+        {},
+        function(data){
+          alert(JSON.stringify(data));
+        }
+      )
+
     }
     </script>
 	</head>
 	<body>
 		<button name="Get Admin Info" onclick="getAdmin()">Get admin </button>
-
+    <button name="postAdmin" onclick="postAdmin()">postAdmin</button>
 
 		</table>
 
