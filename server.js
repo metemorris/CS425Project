@@ -1,15 +1,10 @@
+//files needed
 var mysql      = require('mysql');
 var adminRoutes = require('./routes/admin.js');
 var express    = require("express");
 var jsonParser = require("body-parser");
 var path = require("path");
-
-var connection = mysql.createConnection({
-  host     : '188.121.44.185',//enter database IP
-  user     : 'metemorris',//enter your username
-  password : 'CS425Team13!',//enter your password
-  database : 'metemorris_CS425'
-});
+//creating express
 var app = express();
 
 app.use(jsonParser.urlencoded({
@@ -17,7 +12,7 @@ app.use(jsonParser.urlencoded({
 }))
 
 app.use(jsonParser.json());
-
+//directing webpage to html file in public
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/admin',adminRoutes);
