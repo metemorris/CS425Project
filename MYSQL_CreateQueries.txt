@@ -1,110 +1,316 @@
-CREATE TABLE LibraryBook
-(
-  School_ID VARCHAR(30) NOT NULL,
-  ISBN VARCHAR(15) NOT NULL,
-  Name INT NOT NULL,
-  Total_Number INT NOT NULL,
-  No_Checked_Out INT NOT NULL,
-  PRIMARY KEY (School_ID, ISBN)
-);
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 4541
+#
+# http://www.sequelpro.com/
+# https://github.com/sequelpro/sequelpro
+#
+# Host: 127.0.0.1 (MySQL 5.6.35)
+# Database: project
+# Generation Time: 2017-04-07 21:52:28 +0000
+# ************************************************************
 
-CREATE TABLE Teacher
-(
-  ID VARCHAR(20) NOT NULL,
-  StaffUserID  CHAR(10) NOT NULL,
-  Password VARCHAR(30) NOT NULL,
-  First_Name VARCHAR(30) NOT NULL,
-  Middle_Name VARCHAR(30),
-  Last_Name VARCHAR(30) NOT NULL,
-  PRIMARY KEY (StaffUserID ),
-  UNIQUE (ID)
-);
 
-CREATE TABLE Semester
-(
-  Year INT NOT NULL,
-  FallSpringSummer VARCHAR(30) NOT NULL,
-  SemesterID VARCHAR(10) NOT NULL,
-  PRIMARY KEY (SemesterID)
-);
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-CREATE TABLE Admin
-(
-  Admin_ID VARCHAR(30) NOT NULL,
-  Password VARCHAR(30) NOT NULL,
-  PRIMARY KEY (Admin_ID)
-);
 
-CREATE TABLE Student
-(
-  Student_ID  VARCHAR(10) NOT NULL,
-  Password VARCHAR(30) NOT NULL,
-  First_Name VARCHAR(30) NOT NULL,
-  Last_Name VARCHAR(30) NOT NULL,
-  Middle_Name VARCHAR(30),
-  StaffUserID  CHAR(10) NOT NULL,
-  PRIMARY KEY (Student_ID ),
-  FOREIGN KEY (StaffUserID ) REFERENCES Teacher(StaffUserID )
-);
+# Dump of table Admin
+# ------------------------------------------------------------
 
-CREATE TABLE ParentGuardian
-(
-  ParentGuardian_ID  CHAR(10) NOT NULL,
-  First_Name VARCHAR(30) NOT NULL,
-  Last_Name VARCHAR(30) NOT NULL,
-  Middle_Name VARCHAR(30),
-  Password VARCHAR(30) NOT NULL,
-  Student_ID  VARCHAR(10) NOT NULL,
-  PRIMARY KEY (ParentGuardian_ID ),
-  FOREIGN KEY (Student_ID ) REFERENCES Student(Student_ID )
-);
+DROP TABLE IF EXISTS `Admin`;
 
-CREATE TABLE Class
-(
-  Course_Number VARCHAR(30) NOT NULL,
-  Name VARCHAR(30) NOT NULL,
-  SemesterID VARCHAR(10) NOT NULL,
-  ID CHAR(10) NOT NULL,
-  PRIMARY KEY (Course_Number),
-  FOREIGN KEY (SemesterID) REFERENCES Semester(SemesterID),
-  FOREIGN KEY (ID) REFERENCES Teacher(StaffUserID )
-);
+CREATE TABLE `Admin` (
+  `Admin_ID` varchar(30) NOT NULL,
+  `Password` varchar(30) NOT NULL,
+  PRIMARY KEY (`Admin_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE CheckedOutBooks
-(
-  Name VARCHAR(50) NOT NULL,
-  School_ID VARCHAR(30) NOT NULL,
-  ISBN VARCHAR(15) NOT NULL,
-  Student_ID  VARCHAR(10) NOT NULL,
-  PRIMARY KEY (School_ID, ISBN),
-  FOREIGN KEY (Student_ID ) REFERENCES Student(Student_ID )
-);
+LOCK TABLES `Admin` WRITE;
+/*!40000 ALTER TABLE `Admin` DISABLE KEYS */;
 
-CREATE TABLE Takes
-(
-  Student_ID  VARCHAR(10) NOT NULL,
-  Course_Number VARCHAR(30) NOT NULL,
-  PRIMARY KEY (Student_ID , Course_Number),
-  FOREIGN KEY (Student_ID ) REFERENCES Student(Student_ID ),
-  FOREIGN KEY (Course_Number) REFERENCES Class(Course_Number)
-);
+INSERT INTO `Admin` (`Admin_ID`, `Password`)
+VALUES
+	('1','morganiscool'),
+	('2','muayediscool'),
+	('3','meteiscool');
 
-CREATE TABLE Requires
-(
-  Course_Number VARCHAR(30) NOT NULL,
-  School_ID VARCHAR(30) NOT NULL,
-  ISBN VARCHAR(15) NOT NULL,
-  PRIMARY KEY (Course_Number, School_ID, ISBN),
-  FOREIGN KEY (Course_Number) REFERENCES Class(Course_Number),
-  FOREIGN KEY (School_ID, ISBN) REFERENCES LibraryBook(School_ID, ISBN)
-);
+/*!40000 ALTER TABLE `Admin` ENABLE KEYS */;
+UNLOCK TABLES;
 
-CREATE TABLE Request
-(
-  Student_ID  VARCHAR(10) NOT NULL,
-  School_ID VARCHAR(30) NOT NULL,
-  ISBN VARCHAR(15) NOT NULL,
-  PRIMARY KEY (Student_ID , School_ID, ISBN),
-  FOREIGN KEY (Student_ID ) REFERENCES Student(Student_ID ),
-  FOREIGN KEY (School_ID, ISBN) REFERENCES LibraryBook(School_ID, ISBN)
-);
+
+# Dump of table CheckedOutBooks
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `CheckedOutBooks`;
+
+CREATE TABLE `CheckedOutBooks` (
+  `Name` varchar(50) NOT NULL,
+  `School_ID` varchar(30) NOT NULL,
+  `ISBN` varchar(15) NOT NULL,
+  `Student_ID` varchar(10) NOT NULL,
+  PRIMARY KEY (`School_ID`,`ISBN`),
+  KEY `Student_ID` (`Student_ID`),
+  CONSTRAINT `checkedoutbooks_ibfk_1` FOREIGN KEY (`Student_ID`) REFERENCES `Student` (`Student_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table Class
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Class`;
+
+CREATE TABLE `Class` (
+  `Course_Number` varchar(30) NOT NULL,
+  `Name` varchar(30) NOT NULL,
+  `SemesterID` varchar(10) NOT NULL,
+  `ID` char(10) NOT NULL,
+  PRIMARY KEY (`Course_Number`),
+  KEY `SemesterID` (`SemesterID`),
+  KEY `ID` (`ID`),
+  CONSTRAINT `class_ibfk_1` FOREIGN KEY (`SemesterID`) REFERENCES `Semester` (`SemesterID`),
+  CONSTRAINT `class_ibfk_2` FOREIGN KEY (`ID`) REFERENCES `Teacher` (`StaffUserID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `Class` WRITE;
+/*!40000 ALTER TABLE `Class` DISABLE KEYS */;
+
+INSERT INTO `Class` (`Course_Number`, `Name`, `SemesterID`, `ID`)
+VALUES
+	('425','Database Organization','2','1'),
+	('430','Intro. to Algorithms','2','3'),
+	('440','Programming Lang. Translators','1','2'),
+	('455','Data Communications','3','6'),
+	('458','Intro. to Information Security','3','5'),
+	('470','Computer Architecture','2','4'),
+	('485','Computers and Society','4','7');
+
+/*!40000 ALTER TABLE `Class` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table LibraryBook
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `LibraryBook`;
+
+CREATE TABLE `LibraryBook` (
+  `School_ID` varchar(30) NOT NULL,
+  `ISBN` varchar(15) NOT NULL,
+  `Name` int(11) NOT NULL,
+  `Total_Number` int(11) NOT NULL,
+  `No_Checked_Out` int(11) NOT NULL,
+  PRIMARY KEY (`School_ID`,`ISBN`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `LibraryBook` WRITE;
+/*!40000 ALTER TABLE `LibraryBook` DISABLE KEYS */;
+
+INSERT INTO `LibraryBook` (`School_ID`, `ISBN`, `Name`, `Total_Number`, `No_Checked_Out`)
+VALUES
+	('1','0123744938',0,8,2),
+	('2','0321263588',0,0,0);
+
+/*!40000 ALTER TABLE `LibraryBook` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table ParentGuardian
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ParentGuardian`;
+
+CREATE TABLE `ParentGuardian` (
+  `ParentGuardian_ID` char(10) NOT NULL,
+  `First_Name` varchar(30) NOT NULL,
+  `Last_Name` varchar(30) NOT NULL,
+  `Middle_Name` varchar(30) DEFAULT NULL,
+  `Password` varchar(30) NOT NULL,
+  `Student_ID` varchar(10) NOT NULL,
+  PRIMARY KEY (`ParentGuardian_ID`),
+  KEY `Student_ID` (`Student_ID`),
+  CONSTRAINT `parentguardian_ibfk_1` FOREIGN KEY (`Student_ID`) REFERENCES `Student` (`Student_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `ParentGuardian` WRITE;
+/*!40000 ALTER TABLE `ParentGuardian` DISABLE KEYS */;
+
+INSERT INTO `ParentGuardian` (`ParentGuardian_ID`, `First_Name`, `Last_Name`, `Middle_Name`, `Password`, `Student_ID`)
+VALUES
+	('1','Russell','Wilson','David','test','1'),
+	('10','Ali','Quadri','','test','10'),
+	('11','Gulnar','Gulabi','','test','11'),
+	('2','Saleem','Mohammed','','test','2'),
+	('3','Zete','Morris','','test','3'),
+	('4','Shah','Dheeraj','','test','4'),
+	('5','Uddin','Farzaan','','test','5'),
+	('6','Ali','Syed','Ahmed','test','6'),
+	('7','Jacob','Mohammed','','test','7'),
+	('8','Xiaoxiao','Kim','','test','8'),
+	('9','Sebastian','Jennie','','test','9');
+
+/*!40000 ALTER TABLE `ParentGuardian` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table Request
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Request`;
+
+CREATE TABLE `Request` (
+  `Student_ID` varchar(10) NOT NULL,
+  `School_ID` varchar(30) NOT NULL,
+  `ISBN` varchar(15) NOT NULL,
+  PRIMARY KEY (`Student_ID`,`School_ID`,`ISBN`),
+  KEY `School_ID` (`School_ID`,`ISBN`),
+  CONSTRAINT `request_ibfk_1` FOREIGN KEY (`Student_ID`) REFERENCES `Student` (`Student_ID`),
+  CONSTRAINT `request_ibfk_2` FOREIGN KEY (`School_ID`, `ISBN`) REFERENCES `LibraryBook` (`School_ID`, `ISBN`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table Requires
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Requires`;
+
+CREATE TABLE `Requires` (
+  `Course_Number` varchar(30) NOT NULL,
+  `School_ID` varchar(30) NOT NULL,
+  `ISBN` varchar(15) NOT NULL,
+  PRIMARY KEY (`Course_Number`,`School_ID`,`ISBN`),
+  KEY `School_ID` (`School_ID`,`ISBN`),
+  CONSTRAINT `requires_ibfk_1` FOREIGN KEY (`Course_Number`) REFERENCES `Class` (`Course_Number`),
+  CONSTRAINT `requires_ibfk_2` FOREIGN KEY (`School_ID`, `ISBN`) REFERENCES `LibraryBook` (`School_ID`, `ISBN`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table Semester
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Semester`;
+
+CREATE TABLE `Semester` (
+  `Year` int(11) NOT NULL,
+  `FallSpringSummer` varchar(30) NOT NULL,
+  `SemesterID` varchar(10) NOT NULL,
+  PRIMARY KEY (`SemesterID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `Semester` WRITE;
+/*!40000 ALTER TABLE `Semester` DISABLE KEYS */;
+
+INSERT INTO `Semester` (`Year`, `FallSpringSummer`, `SemesterID`)
+VALUES
+	(2017,'Fall','1'),
+	(2017,'Spring','2'),
+	(2017,'Summer','3'),
+	(2018,'Fall','4');
+
+/*!40000 ALTER TABLE `Semester` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table Student
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Student`;
+
+CREATE TABLE `Student` (
+  `Student_ID` varchar(10) NOT NULL,
+  `Password` varchar(30) NOT NULL,
+  `First_Name` varchar(30) NOT NULL,
+  `Last_Name` varchar(30) NOT NULL,
+  `Middle_Name` varchar(30) DEFAULT NULL,
+  `StaffUserID` char(10) NOT NULL,
+  PRIMARY KEY (`Student_ID`),
+  KEY `StaffUserID` (`StaffUserID`),
+  CONSTRAINT `student_ibfk_1` FOREIGN KEY (`StaffUserID`) REFERENCES `Teacher` (`StaffUserID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `Student` WRITE;
+/*!40000 ALTER TABLE `Student` DISABLE KEYS */;
+
+INSERT INTO `Student` (`Student_ID`, `Password`, `First_Name`, `Last_Name`, `Middle_Name`, `StaffUserID`)
+VALUES
+	('1','test','Morgan','Wilson','Russell','1'),
+	('10','test','Syed Abdullah','Quadri','','2'),
+	('11','test','Zeeshan','Ali Hendrich','','3'),
+	('2','test','Muayed Wasim','Mohammed','','2'),
+	('3','test','Mete','Morris','','3'),
+	('4','test','Dhruvil','Shah','','4'),
+	('5','test','Faizan','Uddin','','5'),
+	('6','test','Arsalan','Ali','','6'),
+	('7','test','Elisa','Jacob','','7'),
+	('8','test','Lisa','Xiaoxiao','','8'),
+	('9','test','Mikala','Sebastian','','7');
+
+/*!40000 ALTER TABLE `Student` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table Takes
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Takes`;
+
+CREATE TABLE `Takes` (
+  `Student_ID` varchar(10) NOT NULL,
+  `Course_Number` varchar(30) NOT NULL,
+  PRIMARY KEY (`Student_ID`,`Course_Number`),
+  KEY `Course_Number` (`Course_Number`),
+  CONSTRAINT `takes_ibfk_1` FOREIGN KEY (`Student_ID`) REFERENCES `Student` (`Student_ID`),
+  CONSTRAINT `takes_ibfk_2` FOREIGN KEY (`Course_Number`) REFERENCES `Class` (`Course_Number`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table Teacher
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Teacher`;
+
+CREATE TABLE `Teacher` (
+  `ID` varchar(20) NOT NULL,
+  `StaffUserID` char(10) NOT NULL,
+  `Password` varchar(30) NOT NULL,
+  `First_Name` varchar(30) NOT NULL,
+  `Middle_Name` varchar(30) DEFAULT NULL,
+  `Last_Name` varchar(30) NOT NULL,
+  PRIMARY KEY (`StaffUserID`),
+  UNIQUE KEY `ID` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `Teacher` WRITE;
+/*!40000 ALTER TABLE `Teacher` DISABLE KEYS */;
+
+INSERT INTO `Teacher` (`ID`, `StaffUserID`, `Password`, `First_Name`, `Middle_Name`, `Last_Name`)
+VALUES
+	('1','1','test','Michael','Kamol','Saelee'),
+	('2','2','test','Suman','','Saha'),
+	('3','3','test','Michael','Johnathan','Bauer'),
+	('4','4','test','Omar','','Aldawud'),
+	('5','5','test','Marius','D','Soneru'),
+	('6','6','test','Cynthia','','Hood'),
+	('7','7','test','Dong','','Jin'),
+	('8','8','test','Virgil','','Bistriceanu');
+
+/*!40000 ALTER TABLE `Teacher` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
