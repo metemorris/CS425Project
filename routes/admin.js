@@ -23,7 +23,9 @@ router.get('',function (req,res){
 
 //add admin
 router.post('',function (req,res){
+  console.log("Insert Database is connected ...");
   select.INSERT('INSERT INTO `Admin`(`Admin_ID`, `Password`) VALUES ("anothr","MALYALAM")',function(response){
+
     res.json(response);
   });
 })

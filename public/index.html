@@ -15,16 +15,15 @@
           alert(JSON.stringify(data));
         }
       )
-
+    }
+    var postAdmin = function(){
       $.post(
         "/admin",
         {},
         function(data){
           alert(JSON.stringify(data));
-        }
-      )
-
-    }
+        })
+      }
     </script>
 	</head>
 	<body>
