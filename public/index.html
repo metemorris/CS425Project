@@ -30,28 +30,26 @@
 		<button name="Get Admin Info" onclick="getAdmin()">Get admin </button>
     <button name="postAdmin" onclick="postAdmin()">postAdmin</button>
 
-		</h1>
-			<form name="login">
-				Username <input type="text" name="userlogin"/>
-				Password <input type="password" name="password"/>
-				<input type="button" onclick="check(this.form)" value="Login"/>
-				<input type="checkbox" checked="checked"> Student
-				<input type="checkbox" checked="checked"> Parent
-				<input type="checkbox" checked="checked"> Teacher
-				<input type="checkbox" checked="checked"> Admin
-			</form>
+		<script src="login.js"></script>
+		<div class="container">
+			<div class="main">
+				<h2>Login Page</h2>
+				<form id="form_id" method="post" name="myform">
+					<label>User Name :</label>
+					<input type="text" name="username" id="username"/>
+					<label>Password :</label>
+					<input type="password" name="password" id="password"/>
 
-			<script language="javascript">
-				function check(form)/*function to check userid & password*/
-				{
-					/*the following code checkes whether the entered userid and password are matching*/
-					if(form.userid.value == "userlogin" && form.pswrd.value == "password") {
-						window.open('target.html')/*opens the target page while Id & password matches*/
-					} else {
-			 			alert("Error! Incorrect password or username.")/*displays error message*/
-					}
-				}
-			</script>
+					<input type="checkbox" onChange="toggleStudent()"> Student
+					<input type="checkbox" checked="toggleParent()"> Parent
+					<input type="checkbox" checked="toggleTeacher()"> Teacher
+					<input type="checkbox" checked="toggleAdmin()"> Admin
+
+					<input type="button" value="Login" id="submit" onclick="validate()"/>
+			</form>
+			<span><b class="note">Note : </b>For this demo use following username and password. <br/><b class="valid">User Name : test<br/>Password : test</b></span>
+			</div>
+		</div>
 
 		<!-- <form action="/action_page.php">
 
@@ -63,10 +61,7 @@
     			<input type="password" placeholder="Enter Password" name="psw" required>
 
     		<button type="submit">Login</button>
-    			<input type="checkbox" checked="checked"> Student
-					<input type="checkbox" checked="checked"> Parent
-					<input type="checkbox" checked="checked"> Teacher
-					<input type="checkbox" checked="checked"> Admin
+
   		</div>
 
   		<div class="container" style="background-color:#f1f1f1">
