@@ -19,6 +19,13 @@ router.get('',function (req,res){
 })
 
 
+//getpasswords
+router.get('/password',function (req,res){
+  sqlFunctions.selectFunction("SELECT password from Admin",function(response){
+    res.json(response);
+  });
+})
+
 //delete admin
 router.post('',function (req,res){
   console.log("Deleting admin...");
