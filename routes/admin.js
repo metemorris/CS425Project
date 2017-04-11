@@ -20,10 +20,17 @@ router.get('',function (req,res){
 
 
 //delete admin
+router.post('',function (req,res){
+  console.log("Deleting admin...");
+  select.INSERT('DELETE FROM `Admin`(`Admin_ID`, `Password`) WHERE Admin_ID = "anothr" AND Password = "MALYALAM")',function(response){
+
+    res.json(response);
+  });
+})
 
 //add admin
 router.post('',function (req,res){
-  console.log("Insert Database is connected ...");
+  console.log("Adding admin...");
   select.INSERT('INSERT INTO `Admin`(`Admin_ID`, `Password`) VALUES ("anothr","MALYALAM")',function(response){
 
     res.json(response);
