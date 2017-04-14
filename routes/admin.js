@@ -4,12 +4,17 @@ const router = express.Router();
 const sqlFunctions = require("./functions/sqlFunctions.js");
 
 
-
-//update admin name
-
-
 //update admin password
+router.post('/password',function (req,res){
+  console.log(req.body);
+  var id= req.body.admin_id
+  var password = req.body.password
+  console.log(id+password)
+  sqlFunctions.selectFunction("UPDATE Admin SET Password='"+password+"' WHERE Admin_ID="+id,function(response){
 
+    res.json(response);
+  });
+})
 
 //display the admins
 router.get('',function (req,res){
@@ -18,27 +23,33 @@ router.get('',function (req,res){
   });
 })
 
-
-//getpasswords
-router.get('/password',function (req,res){
-  sqlFunctions.selectFunction("SELECT password from Admin",function(response){
+//getanadminspassword
+router.get('/password/:id',function (req,res){
+  var userid = req.params.id;
+  console.log(userid)
+  sqlFunctions.selectFunction("SELECT password FROM Admin WHERE admin_ID="+userid,function(response){
     res.json(response);
   });
 })
+
+
+
 
 //delete admin
-router.post('',function (req,res){
-  console.log("Deleting admin...");
-  select.INSERT('DELETE FROM `Admin`(`Admin_ID`, `Password`) WHERE Admin_ID = "anothr" AND Password = "MALYALAM")',function(response){
-
+router.delete('/:id',function (req,res){
+  var userid = req.params.id;
+  console.log(userid)
+  sqlFunctions.selectFunction("DELETE FROM Admin WHERE admin_ID="+userid,function(response){
     res.json(response);
   });
 })
-
 //add admin
 router.post('',function (req,res){
-  console.log("Adding admin...");
-  select.INSERT('INSERT INTO `Admin`(`Admin_ID`, `Password`) VALUES ("anothr","MALYALAM")',function(response){
+  console.log(req.body);
+  var id= req.body.admin_id
+  var password = req.body.password
+  console.log(id+password)
+  sqlFunctions.selectFunction("INSERT INTO Admin VALUES ("+id+",'"+password+"')",function(response){
 
     res.json(response);
   });

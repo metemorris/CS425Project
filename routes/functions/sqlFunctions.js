@@ -13,6 +13,7 @@ var selectFunction = function (selectStatement,callback){
     function(err){
       if(!err) {
         console.log("Database is connected ...");
+        console.log(selectStatement);
         connection.query(selectStatement, function(err, rows, fields) {
           if (!err){
             connection.end();
@@ -25,7 +26,7 @@ var selectFunction = function (selectStatement,callback){
           }
         });
       }
-      else {
+      else { 
         console.log("Error connecting database ... nn"+err);
         //return "Error connecting database ... nn"+err;
       }
