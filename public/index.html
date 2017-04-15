@@ -6,25 +6,7 @@
 		<link rel="icon" href="Images/m.png">
     <script src="Scripts/alert.js"></script>
     <script src="Scripts/jquery-3.1.1.js"></script>
-    <script>
-    var getAdmin = function(){
-      $.get(
-        "/admin",
-        {},
-        function(data){
-          alert(JSON.stringify(data));
-        }
-      )
-    }
-    var postAdmin = function(){
-      $.post(
-        "/admin",
-        {},
-        function(data){
-          alert(JSON.stringify(data));
-        })
-      }
-    </script>
+  
 	</head>
 	<body>
 		<script src="login.js"></script>

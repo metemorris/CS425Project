@@ -1,4 +1,74 @@
 This is the Admin page.
 
-<button name="Get Info" onclick="getAdmin()">Get admin </button>
-<button name="" onclick="postAdmin()">postAdmin</button>
+<head>
+  <script src="Scripts/alert.js"></script>
+  <script src="Scripts/jquery-3.1.1.js"></script>
+  <script>
+  var listAdmins = function(){
+    $.get(
+      "/admin",
+      {},
+      function(data){
+        alert(JSON.stringify(data));
+      }
+    )
+  }
+  var getAdminPassword = function(callback) {
+    $.get(
+      "/admin/password/" + document.getElementById("adminid").value,
+      {},
+      function(data){
+        retval = (JSON.stringify(data));
+        return callback(retval);
+      }
+    )
+  }
+  var postAdmin = function(){
+    $.post(
+      "/admin",
+      {},
+      function(data){
+        alert(JSON.stringify(data));
+      })
+  }
+  function check(form) {
+    getAdminPassword(function(response){
+
+      alert(JSON.stringify(JSON.parse(response)));
+
+      if(dbpw.includes(form.pswrd.value)) {
+         alert("Success!")
+       }
+      else {
+        alert("Error!")
+       }
+    })
+
+
+
+  }
+  </script>
+</head>
+
+<body>
+
+<br>
+Login:
+
+<br>
+
+<form name="login">
+Administrator ID: <input type="text" name="userid" id="adminid"/>
+Password: <input type="password" name="pswrd"/>
+<input type="button" onclick="check(this.form)" value="Login"/>
+<input type="reset" value="Cancel"/>
+</form>
+
+<br>
+
+<button name="loginbutton" onclick="checkLogin()">Login</button>
+
+<button name="Get Info" onclick="listAdmins()">List all administrators</button>
+<!-- <button name="" onclick="postAdmin()">postAdmin</button> -->
+<button name="" onclick="getAdminPassword()">getAdminPassword</button>
+</body>
