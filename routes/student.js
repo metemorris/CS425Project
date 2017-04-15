@@ -10,3 +10,21 @@ router.get('',function (req,res){
     res.json(response);
   });
 }
+
+// get one student
+
+
+
+// get # of classes
+
+
+
+// get checked out books
+
+
+
+// list classes
+
+
+
+// see parents
