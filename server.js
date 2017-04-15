@@ -2,6 +2,7 @@
 var mysql      = require('mysql');
 var adminRoutes = require('./routes/admin.js');
 var studentRoutes = require('./routes/student.js');
+var parentRoutes = require('./routes/parent.js');
 var express    = require("express");
 var jsonParser = require("body-parser");
 var path = require("path");
@@ -18,6 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/admin',adminRoutes);
 app.use('/student',studentRoutes);
+app.use('/parent',parentRoutes);
 
 
 app.use(function (req, res, next) {
