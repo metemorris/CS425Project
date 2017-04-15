@@ -3,21 +3,11 @@ const express = require("express");
 const router = express.Router();
 const sqlFunctions = require("./functions/sqlFunctions.js");
 
-//display the students
-
-router.get('',function (req,res){
-  sqlFunctions.selectFunction("SELECT * from Student",function(response){
-    res.json(response);
-  });
-})
-
-
-// get one student
-
-router.get('/:id',function (req,res){
+//get students password 
+router.get('/password/:id',function (req,res){
   var userid = req.params.id;
   console.log(userid)
-  sqlFunctions.selectFunction("SELECT * FROM Student WHERE student_id="+userid,function(response){
+  sqlFunctions.selectFunction("SELECT password FROM Student WHERE student_ID="+userid,function(response){
     res.json(response);
   });
 })
@@ -26,7 +16,13 @@ router.get('/:id',function (req,res){
 
 // get checked out books
 
-
+router.get('books/:id',function (req,res){
+  var userid = req.params.id;
+  console.log(userid)
+  sqlFunctions.selectFunction("SELECT * FROM CheckedOutBooks Where Student_ID ="+userid,function(response){
+    res.json(response);
+  });
+})
 
 // list classes
 router.get('/classes/:id',function (req,res){
@@ -46,6 +42,25 @@ router.get('/parents/:id',function (req,res){
     res.json(response);
   });
 })
+
+//student A checks out book B
+
+
+//allow student A to sign up for Class B
+router.post('/class',function (req,res){
+  console.log(req.body);
+  var studentid= req.body.student_id
+  var courseid = req.body.course_number
+  console.log(id+password)
+  sqlFunctions.selectFunction("INSERT INTO Takes VALUES ("+studentid+",'"+coursenumber+"')",function(response){
+
+    res.json(response);
+  });
+})
+
+//view which books are required for a students class
+
+
 
 
 module.exports = router;
