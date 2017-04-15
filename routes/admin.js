@@ -64,7 +64,7 @@ router.post('',function (req,res){
 
 //display all students
 router.get('/students',function (req,res){
-  sqlFunctions.selectFunction("SELECT * from Student",function(response){
+  sqlFunctions.selectFunction("SELECT * from Stu dent",function(response){
     res.json(response);
   });
 })

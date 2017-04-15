@@ -2,6 +2,7 @@ var mysql      = require('mysql');
 const express = require("express");
 const router = express.Router();
 const sqlFunctions = require("./functions/sqlFunctions.js");
+var dateTime = require('node-datetime')
 
 //get students password 
 router.get('/password/:id',function (req,res){
@@ -16,7 +17,7 @@ router.get('/password/:id',function (req,res){
 
 // get checked out books
 
-router.get('books/:id',function (req,res){
+router.get('/books/:id',function (req,res){
   var userid = req.params.id;
   console.log(userid)
   sqlFunctions.selectFunction("SELECT * FROM CheckedOutBooks Where Student_ID ="+userid,function(response){
@@ -43,15 +44,33 @@ router.get('/parents/:id',function (req,res){
   });
 })
 
+/* CHECK THIS FUNCTION LATER IT PROBABLY DOESNT WORK */
 //student A checks out book B
-
+router.post('/checkoutbook',function (req,res){
+  console.log(req.body);
+  var ISBN = req.body.ISBN;
+  var Name = req.body.bookname;
+  var school_id = req.body.bookid;
+  var studentid= req.body.student_id;
+  console.log(id+password);
+  var dateTime = require('node-datetime');
+  var dt = dateTime.create();
+  var formatted = dt.format('Y-m-d H:M:S');
+  console.log(formatted);
+  sqlFunctions.selectFunction("INSERT INTO CheckedOutBooks VALUES ('"+formatted+"','"+formatted+"''"+ISBN+"''"+Name+"'"+school_id+""+studentid+")",function(response){
+    res.json(response);
+  });
+  sqlFunctions.selectFunction("UPDATE LibraryBook SET no_checked_out=no_checked_out+1 WHERE School_ID ="+school_id,function(response){
+    res.json(response);
+  });
+})
 
 //allow student A to sign up for Class B
 router.post('/class',function (req,res){
   console.log(req.body);
   var studentid= req.body.student_id
-  var courseid = req.body.course_number
-  console.log(id+password)
+  var coursenumber = req.body.course_number
+  console.log(studentid+coursenumber)
   sqlFunctions.selectFunction("INSERT INTO Takes VALUES ("+studentid+",'"+coursenumber+"')",function(response){
 
     res.json(response);
@@ -59,7 +78,12 @@ router.post('/class',function (req,res){
 })
 
 //view which books are required for a students class
-
+router.get('/classbooks/:id',function (req,res){
+  var classid = req.params.id;
+  sqlFunctions.selectFunction("SELECT * FROM LibraryBook WHERE school_id IN (SELECT school_id FROM Requires WHERE course_number="+classid+")",function(response){
+    res.json(response);
+  });
+})
 
 
 
