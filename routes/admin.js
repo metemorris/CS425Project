@@ -62,4 +62,23 @@ router.post('',function (req,res){
 })
 
 
+//display all students
+router.get('/students',function (req,res){
+  sqlFunctions.selectFunction("SELECT * from Student",function(response){
+    res.json(response);
+  });
+})
+//display all teachers
+router.get('/teachers',function (req,res){
+  sqlFunctions.selectFunction("SELECT * from Teacher",function(response){
+    res.json(response);
+  });
+})
+//display all parents
+router.get('/parents',function (req,res){
+  sqlFunctions.selectFunction("SELECT * from ParentGuardian",function(response){
+    res.json(response);
+  });
+})
+
 module.exports = router;

@@ -3,10 +3,7 @@ const express = require("express");
 const router = express.Router();
 const sqlFunctions = require("./functions/sqlFunctions.js");
 
-//display the teachers
+//Teacher:see classes you are teaching
 
-router.get('',function (req,res){
-  sqlFunctions.selectFunction("SELECT * from Teacher",function(response){
-    res.json(response);
-  });
-}
+//Teacher: see all students in your class
+
