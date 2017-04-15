@@ -5,6 +5,7 @@ const sqlFunctions = require("./functions/sqlFunctions.js");
 
 
 //update admin password
+
 router.post('/password',function (req,res){
   console.log(req.body);
   var id= req.body.admin_id
@@ -17,6 +18,7 @@ router.post('/password',function (req,res){
 })
 
 //display the admins
+
 router.get('',function (req,res){
   sqlFunctions.selectFunction("SELECT * from Admin",function(response){
     res.json(response);
@@ -24,6 +26,7 @@ router.get('',function (req,res){
 })
 
 //getanadminspassword
+
 router.get('/password/:id',function (req,res){
   var userid = req.params.id;
   console.log(userid)
@@ -36,6 +39,7 @@ router.get('/password/:id',function (req,res){
 
 
 //delete admin
+
 router.delete('/:id',function (req,res){
   var userid = req.params.id;
   console.log(userid)
@@ -43,7 +47,9 @@ router.delete('/:id',function (req,res){
     res.json(response);
   });
 })
+
 //add admin
+
 router.post('',function (req,res){
   console.log(req.body);
   var id= req.body.admin_id
