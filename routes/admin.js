@@ -12,6 +12,7 @@ router.post('/password',function (req,res){
   var password = req.body.password
   console.log(id+password)
   sqlFunctions.selectFunction("UPDATE Admin SET Password='"+password+"' WHERE Admin_ID="+id,function(response){
+
     res.json(response);
   });
 })
