@@ -23,6 +23,7 @@
                     }
                 })
             }
+
             var addAdmin = function() {
                 const id = document.getElementById("adminid").value;
                 const pass = document.getElementById("adminPass").value;
@@ -38,6 +39,33 @@
                 })
             }
 
+            var deleteX = function() {
+
+                $.ajax({
+                    url: "/admin/" + document.getElementById("deleteadminid").value,
+                    type: 'DELETE',
+                    success: function(result) {
+                        // Do something with the result
+                        console.log("Deleted");
+                    }
+                });
+            }
+
+            var updateX = function() {
+                const id = document.getElementById("updateadminid").value;
+                const pass = document.getElementById("updatePass").value;
+                const inp = {
+                    admin_id: id,
+                    password: pass
+                };
+                $.post(
+                "/admin/password",
+                inp,
+                function(data){
+                    alert(data);
+                })
+            }
+
         </script>
   
 	</head>
@@ -47,6 +75,7 @@
 		<h1> Hello Admin! </h1>
 
         <button onclick="listAdmins()"> Display All Admins </button>
+        <!-- place to print the display options -->
         <ul id="list"> </ul>
         <h2>Add New Admin: </h2>
         <form name="newAdmin">
@@ -55,7 +84,18 @@
             <input type="button" onclick="addAdmin()" value="Add Admin"/>
             <input type="reset" value="Cancel"/>
         </form>
-        <!-- place to print the display options -->
+
+         <form name="deleteAdmin">
+            Administrator ID: <input type="text" name="userid" id="deleteadminid"/>
+            <input type="button" onclick="deleteX()" value="Delete Admin"/>
+        </form>
+
+        <form name="updateAdmin">
+            Administrator ID: <input type="text" name="userid" id="updateadminid"/>
+            New Password: <input type="password" name="pswrd" id="updatePass"/>
+            <input type="button" onclick="updateX()" value="Update Password"/>
+        </form>
+        
         
 
 	</body>
