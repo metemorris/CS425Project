@@ -1,0 +1,62 @@
+
+<html>
+	<head>
+		<title> Home - Mete Morris </title>
+		<link href="Styles/style2.css" rel = "stylesheet" />
+		<link rel="icon" href="Images/m.png">
+        <script src="Scripts/alert.js"></script>
+        <script src="Scripts/jquery-3.1.1.js"></script>
+
+        <script> 
+            //list all admins on below textbox
+             var listAdmins = function(){
+             $.get(
+                "/admin",
+                {},
+                function(data){
+                    var list = document.getElementById('list');
+                    $("#list").empty();
+                    for(element in data) {
+                        var elem = document.createElement("li");
+                        elem.innerHTML = data[element]['Admin_ID']+ ": " + data[element]['Password'];
+                        list.appendChild(elem);
+                    }
+                })
+            }
+            var addAdmin = function() {
+                const id = document.getElementById("adminid").value;
+                const pass = document.getElementById("adminPass").value;
+                const inp = {
+                    admin_id: id,
+                    password: pass
+                };
+                $.post(
+                "/admin",
+                inp,
+                function(data){
+                    alert(data);
+                })
+            }
+
+        </script>
+  
+	</head>
+	<body>
+		<script src="login.js"></script>
+
+		<h1> Hello Admin! </h1>
+
+        <button onclick="listAdmins()"> Display All Admins </button>
+        <ul id="list"> </ul>
+        <h2>Add New Admin: </h2>
+        <form name="newAdmin">
+            Administrator ID: <input type="text" name="userid" id="adminid"/>
+            Password: <input type="password" name="pswrd" id="adminPass"/>
+            <input type="button" onclick="addAdmin()" value="Add Admin"/>
+            <input type="reset" value="Cancel"/>
+        </form>
+        <!-- place to print the display options -->
+        
+
+	</body>
+</html>

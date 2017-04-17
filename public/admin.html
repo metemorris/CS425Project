@@ -1,18 +1,10 @@
-This is the Admin page.
+
 
 <head>
   <script src="Scripts/alert.js"></script>
   <script src="Scripts/jquery-3.1.1.js"></script>
   <script>
-  var listAdmins = function(){
-    $.get(
-      "/admin",
-      {},
-      function(data){
-        alert(JSON.stringify(data));
-      }
-    )
-  }
+  //This is how to get admin password
   var getAdminPassword = function(callback) {
     $.get(
       "/admin/password/" + document.getElementById("adminid").value,
@@ -23,52 +15,36 @@ This is the Admin page.
       }
     )
   }
-  var postAdmin = function(){
-    $.post(
-      "/admin",
-      {},
-      function(data){
-        alert(JSON.stringify(data));
-      })
-  }
+  //This is how to check login info
   function check(form) {
     getAdminPassword(function(response){
 
-      alert(JSON.stringify(JSON.parse(response)));
+      const realPass = JSON.parse(response)[0]['password'];
 
-      if(dbpw.includes(form.pswrd.value)) {
-         alert("Success!")
+      if(realPass == document.getElementById("adminPass").value) {
+         alert("Success!" + document.getElementById("adminPass").value);
+         window.location.href = '/admin-page.html';
        }
       else {
         alert("Error!")
        }
     })
-
-
-
   }
   </script>
 </head>
 
 <body>
 
+<h1> Admin Login Page </h1>
 <br>
 Login:
 
 <br>
 
 <form name="login">
-Administrator ID: <input type="text" name="userid" id="adminid"/>
-Password: <input type="password" name="pswrd"/>
-<input type="button" onclick="check(this.form)" value="Login"/>
-<input type="reset" value="Cancel"/>
+  Administrator ID: <input type="text" name="userid" id="adminid"/>
+  Password: <input type="password" name="pswrd" id="adminPass"/>
+  <input type="button" onclick="check(this.form)" value="Login"/>
+  <input type="reset" value="Cancel"/>
 </form>
-
-<br>
-
-<button name="loginbutton" onclick="checkLogin()">Login</button>
-
-<button name="Get Info" onclick="listAdmins()">List all administrators</button>
-<!-- <button name="" onclick="postAdmin()">postAdmin</button> -->
-<button name="" onclick="getAdminPassword()">getAdminPassword</button>
 </body>
