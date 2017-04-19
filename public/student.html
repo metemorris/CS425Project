@@ -1,6 +1,7 @@
 <head>
   <script src="Scripts/alert.js"></script>
   <script src="Scripts/jquery-3.1.1.js"></script>
+  <script src="login.js"></script>
   <script>
   //This is how to get student password
   var getStudentPassword = function(callback) {
@@ -21,7 +22,9 @@
 
       if(realPass == document.getElementById("studentpass").value) {
          alert("Success!" + document.getElementById("studentpass").value);
-         window.location.href = '/student-page.html';
+         setCookie(studentid.value);
+         alert(getCookie().value);
+         //window.location = "student-page.html";
        }
       else {
         alert("Error!")

@@ -34,3 +34,30 @@ function loginPage() {
   alert ("Back to login page...")
   window.location = "index.html";
 }
+
+// sets a cookie
+
+function setCookie(userid) {
+  document.cookie = userid;
+}
+
+// retrieves a cookie
+
+function getCookie() {
+  var userid = decodeURIComponent(document.cookie);
+  return userid;
+}
+
+// checks if a cookie is set
+
+function checkCookie(userid) {
+  var name = getCookie(userid);
+  if (username != "") {
+    alert("Welcome, "  = name);
+  } else {
+    name = prompt("There seems to be a problem, please enter your name.", "");
+    if (name != "" && name != null) {
+      setCookie(name);
+    }
+  }
+}

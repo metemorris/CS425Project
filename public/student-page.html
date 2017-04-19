@@ -6,8 +6,10 @@
 		<link rel="icon" href="Images/m.png">
         <script src="Scripts/alert.js"></script>
         <script src="Scripts/jquery-3.1.1.js"></script>
+				<script src="login.js"></script>
 
         <script>
+
             //list all admins on below textbox
 						var listAdmins = function(){
 						$.get(
@@ -74,7 +76,7 @@
 
 		<h1> Hello Admin! </h1>
 
-        <button onclick="listAdmins()"> Display All Admins </button>
+        <button onclick="alert(getCookie())""> showCookie </button>
         <!-- place to print the display options -->
         <ul id="list"> </ul>
         <h2>Add New Admin: </h2>
