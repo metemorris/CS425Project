@@ -9,20 +9,20 @@
 
         <script>
             //list all admins on below textbox
-             var listAdmins = function(){
-             $.get(
-                "/admin",
-                {},
-                function(data){
-                    var list = document.getElementById('list');
-                    $("#list").empty();
-                    for(element in data) {
-                        var elem = document.createElement("li");
-                        elem.innerHTML = data[element]['Admin_ID']+ ": " + data[element]['Password'];
-                        list.appendChild(elem);
-                    }
-                })
-            }
+						var listAdmins = function(){
+						$.get(
+							 "/admin",
+							 {},
+							 function(data){
+									 var list = document.getElementById('list');
+									 $("#list").empty();
+									 for(element in data) {
+											 var elem = document.createElement("li");
+											 elem.innerHTML = data[element]['Admin_ID']+ ": " + data[element]['Password'];
+											 list.appendChild(elem);
+									 }
+							 })
+					 }
 
             var addAdmin = function() {
                 const id = document.getElementById("adminid").value;
@@ -95,6 +95,11 @@
             New Password: <input type="password" name="pswrd" id="updatePass"/>
             <input type="button" onclick="updateX()" value="Update Password"/>
         </form>
+
+				<form name="student info">
+				  Student ID: <input type="text" name="userid" id="studentid"/>
+				  Password: <input type="password" name="pswrd" id="studentpass"/>
+				</form>
 
 			<button class="btn btn-primary" name="Go to Login page" onclick="loginPage()">Go to Login page </button>
 

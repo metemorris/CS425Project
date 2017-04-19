@@ -29,3 +29,8 @@ function toggleAdmin() {
   alert ("You're an admin.")
   window.location = "admin.html";
 }
+
+function loginPage() {
+  alert ("Back to login page...")
+  window.location = "index.html";
+}
