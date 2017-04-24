@@ -1,7 +1,7 @@
 
 <html>
 	<head>
-		<title> Home - Mete Morris </title>
+		<title> Admin Page</title>
 		<link href="Styles/style2.css" rel = "stylesheet" />
 		<link rel="icon" href="Images/m.png">
         <script src="Scripts/alert.js"></script>
@@ -23,6 +23,68 @@
                     }
                 })
             }
+            var listStudents = function(){
+             $.get(
+                "/admin/students",
+                {},
+                function(data){
+                    var list = document.getElementById('list');
+                    $("#list").empty();
+                    for(element in data) {
+                        var elem = document.createElement("li");
+                        elem.innerHTML =  "Name: "+data[element]['First_Name']+" " + data[element]['Last_Name']+" | ID:  "+data[element]['Student_ID']+" | Password:  "+data[element]['Password'];
+                        list.appendChild(elem);
+                    }
+                })
+            }
+
+            var listTeachers = function(){
+             $.get(
+                "/admin/teachers",
+                {},
+                function(data){
+                    var list = document.getElementById('list');
+                    $("#list").empty();
+                    for(element in data) {
+                        var elem = document.createElement("li");
+                        elem.innerHTML =  "Name: "+data[element]['First_Name']+" " + data[element]['Last_Name']+" | ID:  "+data[element]['ID']+" | Password:  "+data[element]['Password'];
+                        list.appendChild(elem);
+                    }
+                })
+            }
+
+
+            var listParents = function(){
+             $.get(
+                "/admin/parents",
+                {},
+                function(data){
+                    var list = document.getElementById('list');
+                    $("#list").empty();
+                    for(element in data) {
+                        var elem = document.createElement("li");
+                        elem.innerHTML =  "Name: "+data[element]['First_Name']+" " + data[element]['Last_Name']+" | ID:  "+data[element]['ParentGuardian_ID']+" | Password:  "+data[element]['Password'];
+                        list.appendChild(elem);
+                    }
+                })
+            }
+
+
+            var listBooks = function(){
+             $.get(
+                "/admin/books",
+                {},
+                function(data){
+                    var list = document.getElementById('list');
+                    $("#list").empty();
+                    for(element in data) {
+                        var elem = document.createElement("li");
+                        elem.innerHTML =  "Name: "+data[element]['Name']+" | ID:  "+data[element]['ISBN']+" | Total Number:  "+data[element]['Total_Number']+" | Number Checked Out:  "+data[element]['No_Checked_Out'];
+                        list.appendChild(elem);
+                    }
+                })
+            }
+
 
             var addAdmin = function() {
                 const id = document.getElementById("adminid").value;
@@ -66,15 +128,25 @@
                 })
             }
 
+            var loginPage= function(){
+                window.location.href = 'index.html';
+            }
+
+
+
         </script>
 
 	</head>
 	<body>
 		<script src="login.js"></script>
 
-		<h1> Hello Admin! </h1>
+		<h1> ADMIN PAGE </h1>
 
         <button onclick="listAdmins()"> Display All Admins </button>
+        <button onclick="listStudents()"> Display All Students </button>
+        <button onclick="listTeachers()"> Display All Teachers </button>
+        <button onclick="listParents()"> Display All Parents </button>
+        <button onclick="listBooks()"> Display All Books </button>
         <!-- place to print the display options -->
         <ul id="list"> </ul>
         <h2>Add New Admin: </h2>
@@ -84,12 +156,12 @@
             <input type="button" onclick="addAdmin()" value="Add Admin"/>
             <input type="reset" value="Cancel"/>
         </form>
-
+        <h2>Delete Admin: </h2>
          <form name="deleteAdmin">
             Administrator ID: <input type="text" name="userid" id="deleteadminid"/>
             <input type="button" onclick="deleteX()" value="Delete Admin"/>
         </form>
-
+        <h2>Update Admin: </h2>
         <form name="updateAdmin">
             Administrator ID: <input type="text" name="userid" id="updateadminid"/>
             New Password: <input type="password" name="pswrd" id="updatePass"/>

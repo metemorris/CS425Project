@@ -22,9 +22,7 @@
 
       if(realPass == document.getElementById("studentpass").value) {
          alert("Success!" + document.getElementById("studentpass").value);
-         setCookie(studentid.value);
-         alert(getCookie().value);
-         //window.location = "student-page.html";
+         window.location.href = "/student-page.html";
        }
       else {
         alert("Error!")

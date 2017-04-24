@@ -52,14 +52,16 @@ router.post('/checkoutbook',function (req,res){
   var Name = req.body.bookname;
   var school_id = req.body.bookid;
   var studentid= req.body.student_id;
-  console.log(id+password);
   var dateTime = require('node-datetime');
   var dt = dateTime.create();
-  var formatted = dt.format('Y-m-d H:M:S');
+  var formatted = dt.format('Y-m-d');
   console.log(formatted);
-  sqlFunctions.selectFunction("INSERT INTO CheckedOutBooks VALUES ('"+formatted+"','"+formatted+"''"+ISBN+"''"+Name+"'"+school_id+""+studentid+")",function(response){
-    res.json(response);
+  var todaydate = formatted.toString();
+  console.log(todaydate);
+  sqlFunctions.selectFunction("INSERT INTO CheckedOutBooks VALUES ('"+Name+"','"+school_id+"',"+ISBN+",'"+studentid+"',"+formatted+","+formatted+")",function(response){
+    //res.json(response);
   });
+  console.log("INSERTED THE BOOK");
   sqlFunctions.selectFunction("UPDATE LibraryBook SET no_checked_out=no_checked_out+1 WHERE School_ID ="+school_id,function(response){
     res.json(response);
   });

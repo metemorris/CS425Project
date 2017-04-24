@@ -40,7 +40,7 @@ router.get('/password/:id',function (req,res){
 
 //delete admin
 
-router.delete('/:id',function (req,res){
+router.delete('/:id',function (req ,res){
   var userid = req.params.id;
   console.log(userid)
   sqlFunctions.selectFunction("DELETE FROM Admin WHERE admin_ID="+userid,function(response){
@@ -57,14 +57,14 @@ router.post('',function (req,res){
   console.log(id+password)
   sqlFunctions.selectFunction("INSERT INTO Admin VALUES ("+id+",'"+password+"')",function(response){
 
-    res.json(response);
+    res.json(response); 
   });
 })
 
 
 //display all students
 router.get('/students',function (req,res){
-  sqlFunctions.selectFunction("SELECT * from Stu dent",function(response){
+  sqlFunctions.selectFunction("SELECT * from Student",function(response){
     res.json(response);
   });
 })
@@ -77,6 +77,14 @@ router.get('/teachers',function (req,res){
 //display all parents
 router.get('/parents',function (req,res){
   sqlFunctions.selectFunction("SELECT * from ParentGuardian",function(response){
+    res.json(response);
+  });
+})
+
+
+//display all books
+router.get('/books',function (req,res){
+  sqlFunctions.selectFunction("SELECT * from LibraryBook",function(response){
     res.json(response);
   });
 })
