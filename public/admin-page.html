@@ -132,8 +132,43 @@
                 window.location.href = 'index.html';
             }
 
-
-
+            var searchBook = function () {
+                $.get(
+                    "/librarybook/bookname/" + document.getElementById('search-name').value ,
+                    {},
+                    function(data){
+                        alert(JSON.stringify(data));
+                        var list = document.getElementById('booklist');
+                        $("#booklist").empty();
+                        for(element in data) {
+                            var elem = document.createElement("li");
+                            var div = document.createElement("div");
+                            var btn = document.createElement("button");
+                            var inp = document.createElement("input");
+                            var inp2 = document.createElement("input");
+                            inp.type = "number";
+                            inp.placeholder = "Enter student id: ";
+                            inp2.type = "text";
+                            inp2.placeholder = "2017-12-31";
+                            div.innerHTML =  "Name: "+data[element]['Name']+" | ID:  "+data[element]['ISBN']+" | Total Number:  "+data[element]['Total_Number']+" | Number Checked Out:  "+data[element]['No_Checked_Out'];
+                            btn.innerHTML = "Checkout";
+                            btn.addEventListener('click', function () {
+                                var postdata = {ISBN: data[element]['ISBN'], bookname: data[element]['Name'], student_id: parseInt(inp.value), bookid: data[element]['School_ID'], due_date: inp2.value};
+                                $.post(
+                                    "/student/checkoutbook",
+                                    postdata,
+                                    function(data){
+                                        alert('You have Checked Out The Book successfully!');
+                                    });
+                            });
+                            elem.appendChild(div);
+                            elem.appendChild(inp);
+                            elem.appendChild(inp2);
+                            elem.appendChild(btn);
+                            list.appendChild(elem);
+                        }
+                    })
+            }
         </script>
 
 	</head>
@@ -167,9 +202,13 @@
             New Password: <input type="password" name="pswrd" id="updatePass"/>
             <input type="button" onclick="updateX()" value="Update Password"/>
         </form>
+        <button class="btn btn-primary" name="Go to Login page" onclick="loginPage()">Go to Login page </button>
 
-			<button class="btn btn-primary" name="Go to Login page" onclick="loginPage()">Go to Login page </button>
-
-
-	</body>
+    <h2>
+        Search For Book:
+    </h2>
+        <input type="text" id="search-name"/>
+        <button type="button" onclick="searchBook()"></button>
+        <ul id="booklist"></ul>
+    </body>
 </html>

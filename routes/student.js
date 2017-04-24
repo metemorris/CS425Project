@@ -51,7 +51,7 @@ router.post('/checkoutbook',function (req,res){
   var ISBN = req.body.ISBN;
   var Name = req.body.bookname;
   var school_id = req.body.bookid;
-  var studentid= req.body.student_id;
+  var studentid = req.body.student_id;
   var duedate = req.body.due_date; 
   var dateTime = require('node-datetime');
   var dt = dateTime.create();
