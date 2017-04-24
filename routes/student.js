@@ -44,7 +44,6 @@ router.get('/parents/:id',function (req,res){
   });
 })
 
-/* CHECK THIS FUNCTION LATER IT PROBABLY DOESNT WORK */
 //student A checks out book B
 router.post('/checkoutbook',function (req,res){
   console.log(req.body);
@@ -82,8 +81,8 @@ router.post('/class',function (req,res){
 
 //view which books are required for a students class
 router.get('/classbooks/:id',function (req,res){
-  var classid = req.params.id;
-  sqlFunctions.selectFunction("SELECT * FROM LibraryBook WHERE school_id IN (SELECT school_id FROM Requires WHERE course_number="+classid+")",function(response){
+  var studentid = req.params.id;
+  sqlFunctions.selectFunction("SELECT * FROM LibraryBook WHERE school_id IN (SELECT school_id FROM Requires WHERE course_number IN (SELECT course_number FROM Takes WHERE student_ID="+studentid+"))",function(response){
     res.json(response);
   });
 })

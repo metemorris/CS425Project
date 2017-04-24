@@ -6,7 +6,14 @@ const sqlFunctions = require("./functions/sqlFunctions.js");
 //list all books
 
 
-//list all all students who checked a certain book
+//list all books checked out
+router.get('/checkedoutbooks',function (req,res){
+  var userid = req.params.id;
+  console.log(userid)
+  sqlFunctions.selectFunction("SELECT * FROM CheckedOutBooks",function(response){
+    res.json(response);
+  });
+})
 
 
 //search a book by name
@@ -17,5 +24,36 @@ router.get('/bookname/:id',function (req,res){
   });
 })
 
+
+//remove checked out book
+router.post('/checkin',function (req,res){
+  var sid= req.body.student_id
+  var bid = req.body.bookid
+  console.log(sid+":"+bid)
+  sqlFunctions.selectFunction("DELETE FROM CheckedOutBooks WHERE Student_ID="+sid+" AND School_ID="+bid,function(response){
+    //res.json(response);
+  });
+  console.log("Checked the Book Out");
+  sqlFunctions.selectFunction("UPDATE LibraryBook SET no_checked_out=no_checked_out-1 WHERE School_ID ="+bid,function(response){
+    res.json(response);
+  });
+
+})
+
+//get overdue books from student id
+router.get('/overduebooks/:id',function (req,res){
+  var studentid = req.params.id;
+  sqlFunctions.selectFunction("SELECT COUNT(*) FROM CheckedOutBooks WHERE Student_ID="+studentid+" AND (DATE(NOW()) > DATE(DueDate)) GROUP BY Student_ID ",function(response){
+    res.json(response);
+  });
+})
+
+//list all overduebooks
+router.get('/overduebooks',function (req,res){
+  var studentid = req.params.id;
+  sqlFunctions.selectFunction("SELECT * FROM CheckedOutBooks WHERE (DATE(NOW()) > DATE(DueDate))",function(response){
+    res.json(response);
+  });
+})
 
 module.exports = router;

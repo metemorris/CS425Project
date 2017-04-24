@@ -6,7 +6,7 @@
   <script>
 
       window.onload = function WindowLoad(event) {
-          var id = localStorage.getItem('id');
+          var id = localStorage.getItem('adminid');
           console.log(id);
           if(id != null) {
               window.location.href = '/admin-page.html?id=' + id;
@@ -32,8 +32,9 @@
 
       if(realPass == document.getElementById("adminPass").value) {
          alert("Success!" + document.getElementById("adminPass").value);
-         localStorage.setItem('id', document.getElementById("adminid").value);
-         window.location.href = '/admin-page.html';
+         localStorage.setItem('adminid', document.getElementById("adminid").value);
+         var id = localStorage.getItem('adminid');
+         window.location.href = '/admin-page.html?id=' + id;
        }
       else {
         alert("Error!")

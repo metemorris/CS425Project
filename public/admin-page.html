@@ -91,8 +91,24 @@
                 })
             }
 
+           var listOverdueBooks = function(){
+               $.get(
+                "/librarybook/overduebooks/",
+                {},
+                function(data){
+                    var list = document.getElementById('list');
+                    $("#list").empty();
+                    for(element in data) {
+                        var elem = document.createElement("li");
+                        elem.className = "list-group-item";
+                        elem.innerHTML =  "Name: "+data[element]['Name']+" | ID:  "+data[element]['ISBN']+" | Date Out:  "+data[element]['DateOut']+" | Due Date:  "+data[element]['DueDate'];
+                        list.appendChild(elem);
+                    }
+                })
+            }
+
             var signOut = function() {
-                localStorage.removeItem('id');
+                localStorage.removeItem('adminid');
                 window.location.href = '/index.html';
             }
 
@@ -180,6 +196,39 @@
                         }
                     })
             }
+            
+             var listCheckedOutBooks = function(){
+             $.get(
+                "/librarybook/checkedoutbooks",
+                {},
+                function(data){
+                    var list = document.getElementById('chekedoutbooklist');
+                    $("#chekedoutbooklist").empty();
+                    for(element in data) {
+                        var elem = document.createElement("li");
+                        var div = document.createElement("div");
+                        var btn = document.createElement("button");
+                        elem.className = "list-group-item";
+                        elem.innerHTML =  "Name: "+data[element]['Name']+" | ID:  "+data[element]['ISBN']+" | Date Out:  "+data[element]['DateOut']+" | Due Date:  "+data[element]['DueDate']+"  | Student ID: "+data[element]['Student_ID'];
+                        btn.innerHTML = "Check In";
+                        btn.addEventListener('click', function () {
+                            var postdata = {student_id: data[element]['Student_ID'], bookid: data[element]['School_ID']};
+                                $.post(
+                                    "/librarybook/checkin",
+                                    postdata,
+                                    function(data){
+                                        alert('You have Checked In The Book successfully!');
+                                    });
+                         });
+                        list.appendChild(elem);
+                        list.appendChild(btn);
+                    }
+                })
+            }
+
+
+
+
         </script>
 
 	</head>
@@ -188,7 +237,7 @@
 
         <div class="jumbotron">
             <h1 class="display-5"> Admin Home </h1>
-            <p class="lead"> LUSe the resources below to manage library data.</p>
+            <p class="lead"> Use the resources below to manage library data.</p>
             <hr class="my-4">
         </div>
         <div class="container-fluid">
@@ -199,6 +248,7 @@
                     <button onclick="listTeachers()" class="btn btn-secondary"> Display All Teachers </button>
                     <button onclick="listParents()" class="btn btn-secondary"> Display All Parents </button>
                     <button onclick="listBooks()" class="btn btn-secondary"> Display All Books </button>
+                    <button onclick="listOverdueBooks()" class="btn btn-secondary"> List Overdue Books</button>
                     <button onclick="signOut()" class="btn btn-secondary"> Sign Out </button>
                 </div>
             </div>
@@ -266,7 +316,7 @@
             </div>
             <div class="row mt-4">
                 <div class="col">
-                    <h2 class="display-6"> Search For Book: </h2>
+                    <h2 class="display-6"> Search/Check Out For Book: </h2>
                 </div>
             </div>
             <div class="row">
@@ -282,8 +332,19 @@
             <div class="row">
                 <ul class="list-group" id="booklist"></ul>
             </div>
-
         </div>
+        <div class="row mt-4">
+            <div class="col">
+                <h2 class="display-6"> Check In Book: </h2>
+                </div>
+            </div>
+            <button onclick="listCheckedOutBooks()" class="btn btn-primary"> List Checked Out Books </button>
+            <div class="row">
+                <div class="col">
+                    <ul id="chekedoutbooklist" class="list-group"> </ul>
+                </div>
+            </div>
+      
         <!-- place to print the display options -->
     </body>
 </html>

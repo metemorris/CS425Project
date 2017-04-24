@@ -1,7 +1,7 @@
 
 <html>
 	<head>
-		<title> Home - Mete Morris </title>
+		<title> Student Page </title>
 		<link href="Styles/style2.css" rel = "stylesheet" />
 		<link rel="icon" href="Images/m.png">
         <script src="Scripts/jquery-3.1.1.js"></script>
@@ -10,64 +10,81 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script src="login.js"></script>
         <script>
-
-            //list all admins on below textbox
-						var listAdmins = function(){
-						$.get(
-							 "/admin",
-							 {},
-							 function(data){
-									 var list = document.getElementById('list');
-									 $("#list").empty();
-									 for(element in data) {
-											 var elem = document.createElement("li");
-											 elem.innerHTML = data[element]['Admin_ID']+ ": " + data[element]['Password'];
-											 list.appendChild(elem);
-									 }
-							 })
-					 }
-
-            var addAdmin = function() {
-                const id = document.getElementById("adminid").value;
-                const pass = document.getElementById("adminPass").value;
-                const inp = {
-                    admin_id: id,
-                    password: pass
-                };
-                $.post(
-                "/admin",
-                inp,
+        //get amount due
+        window.onload = function() {
+            var id = localStorage.getItem('studentid');
+            $.get(
+                "/librarybook/overduebooks/"+id,
+                {},
                 function(data){
-                    alert(data);
-                })
-            }
-
-            var deleteX = function() {
-
-                $.ajax({
-                    url: "/admin/" + document.getElementById("deleteadminid").value,
-                    type: 'DELETE',
-                    success: function(result) {
-                        // Do something with the result
-                        console.log("Deleted");
+                    var list = document.getElementById('amountdue');
+                    $("#list").empty();
+                    for(element in data) {
+                        var elem = document.createElement("li");
+                        elem.className = "list-group-item";
+                        elem.innerHTML =  "Amount Due:  $"+data[element]['COUNT(*)']*15;
+                        list.appendChild(elem);
                     }
-                });
-            }
+                })
+        }
 
-            var updateX = function() {
-                const id = document.getElementById("updateadminid").value;
-                const pass = document.getElementById("updatePass").value;
-                const inp = {
-                    admin_id: id,
-                    password: pass
-                };
-                $.post(
-                "/admin/password",
-                inp,
+
+		var listClasses = function(){
+            var id = localStorage.getItem('studentid');
+             $.get(
+                "student/classes/"+id,
+                {},
                 function(data){
-                    alert(data);
+                    var list = document.getElementById('list');
+                    $("#list").empty();
+                    for(element in data) {
+                        var elem = document.createElement("li");
+                        elem.className = "list-group-item";
+                        elem.innerHTML = "Course Number: "+data[element]['Course_Number']+ "  | Course Name: " + data[element]['Name'];
+                        list.appendChild(elem);
+                    }
                 })
             }
+
+            var signOut = function() {
+                localStorage.removeItem('studentid');
+                window.location.href = '/index.html';
+            }
+
+            var listBooksNeeded = function(){
+             var id = localStorage.getItem('studentid');
+             $.get(
+                "/student/classbooks/"+id,
+                {},
+                function(data){
+                    var list = document.getElementById('list');
+                    $("#list").empty();
+                    for(element in data) {
+                        var elem = document.createElement("li");
+                        elem.className = "list-group-item";
+                        elem.innerHTML =  "Name: "+data[element]['Name']+" | ID:  "+data[element]['ISBN']+" | Total Number:  "+data[element]['Total_Number']+" | Number Checked Out:  "+data[element]['No_Checked_Out'];
+                        list.appendChild(elem);
+                    }
+                })
+            }
+
+          var listCheckedOutBooks = function(){
+             var id = localStorage.getItem('studentid');
+             $.get(
+                "/student/books/"+id,
+                {},
+                function(data){
+                    var list = document.getElementById('list');
+                    $("#list").empty();
+                    for(element in data) {
+                        var elem = document.createElement("li");
+                        elem.className = "list-group-item";
+                        elem.innerHTML =  "Name: "+data[element]['Name']+" | ID:  "+data[element]['ISBN']+" | Date Out:  "+data[element]['DateOut']+" | Due Date:  "+data[element]['DueDate'];
+                        list.appendChild(elem);
+                    }
+                })
+            }
+
 
         </script>
 
@@ -75,36 +92,29 @@
 	<body>
 		<script src="login.js"></script>
 
-		<h1> Hello Admin! </h1>
-
-        <button onclick="alert(getCookie())""> showCookie </button>
+		<div class="jumbotron">
+            <h1 class="display-5"> Student Home </h1>
+            <p class="lead"> Use the resources below to manage student account</p>
+            <ul class="list-group" id="amountdue"> </ul>
+            <hr class="my-4">
+        </div>
+       <div class="container-fluid">
+          <div class="row">
+             <div class="col">
+                <button onclick="listCheckedOutBooks()" class="btn btn-secondary"> Show Checked Out Books </button>
+                <button onclick="listClasses()" class="btn btn-secondary"> Show Classes </button>
+                <button onclick="listBooksNeeded()" class="btn btn-secondary"> Show Books Needed For Classes</button>
+                <button onclick="signOut()" class="btn btn-secondary"> Sign Out </button>
+            </div>
+        </div>
         <!-- place to print the display options -->
-        <ul id="list"> </ul>
-        <h2>Add New Admin: </h2>
-        <form name="newAdmin">
-            Administrator ID: <input type="text" name="userid" id="adminid"/>
-            Password: <input type="password" name="pswrd" id="adminPass"/>
-            <input type="button" onclick="addAdmin()" value="Add Admin"/>
-            <input type="reset" value="Cancel"/>
-        </form>
+        <div class="row">
+                <div class="col">
+                    <ul id="list" class="list-group"> </ul>
+                </div>
+        </div>
 
-         <form name="deleteAdmin">
-            Administrator ID: <input type="text" name="userid" id="deleteadminid"/>
-            <input type="button" onclick="deleteX()" value="Delete Admin"/>
-        </form>
-
-        <form name="updateAdmin">
-            Administrator ID: <input type="text" name="userid" id="updateadminid"/>
-            New Password: <input type="password" name="pswrd" id="updatePass"/>
-            <input type="button" onclick="updateX()" value="Update Password"/>
-        </form>
-
-				<form name="student info">
-				  Student ID: <input type="text" name="userid" id="studentid"/>
-				  Password: <input type="password" name="pswrd" id="studentpass"/>
-				</form>
-
-			<button class="btn btn-primary" name="Go to Login page" onclick="loginPage()">Go to Login page </button>
+        
 
 
 	</body>
