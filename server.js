@@ -23,7 +23,7 @@ app.use('/admin',adminRoutes);
 app.use('/student',studentRoutes);
 app.use('/parent',parentRoutes);
 app.use('/teacher',teacherRoutes);
-app.use('/teacher',librarybookRoutes);
+app.use('/librarybook',librarybookRoutes);
 
 
 app.use(function (req, res, next) {

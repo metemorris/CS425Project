@@ -52,13 +52,14 @@ router.post('/checkoutbook',function (req,res){
   var Name = req.body.bookname;
   var school_id = req.body.bookid;
   var studentid= req.body.student_id;
+  var duedate = req.body.due_date; 
   var dateTime = require('node-datetime');
   var dt = dateTime.create();
   var formatted = dt.format('Y-m-d');
   console.log(formatted);
   var todaydate = formatted.toString();
   console.log(todaydate);
-  sqlFunctions.selectFunction("INSERT INTO CheckedOutBooks VALUES ('"+Name+"','"+school_id+"',"+ISBN+",'"+studentid+"',"+formatted+","+formatted+")",function(response){
+  sqlFunctions.selectFunction("INSERT INTO CheckedOutBooks VALUES ('"+Name+"','"+school_id+"',"+ISBN+",'"+studentid+"','"+todaydate+"','"+duedate+"')",function(response){
     //res.json(response);
   });
   console.log("INSERTED THE BOOK");
