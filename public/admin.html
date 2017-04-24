@@ -1,9 +1,16 @@
-
-
 <head>
   <script src="Scripts/alert.js"></script>
   <script src="Scripts/jquery-3.1.1.js"></script>
   <script>
+
+      window.onload = function WindowLoad(event) {
+          var id = localStorage.getItem('id');
+          console.log(id);
+          if(id != null) {
+              window.location.href = '/admin-page.html?id=' + id;
+          }
+      }
+
   //This is how to get admin password
   var getAdminPassword = function(callback) {
     $.get(
@@ -23,6 +30,7 @@
 
       if(realPass == document.getElementById("adminPass").value) {
          alert("Success!" + document.getElementById("adminPass").value);
+         localStorage.setItem('id', document.getElementById("adminid").value);
          window.location.href = '/admin-page.html';
        }
       else {

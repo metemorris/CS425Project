@@ -85,6 +85,11 @@
                 })
             }
 
+            var signOut = function() {
+                localStorage.removeItem('id');
+                window.location.href = '/index.html';
+            }
+
 
             var addAdmin = function() {
                 const id = document.getElementById("adminid").value;
@@ -151,7 +156,7 @@
                             inp2.type = "text";
                             inp2.placeholder = "2017-12-31";
                             div.innerHTML =  "Name: "+data[element]['Name']+" | ID:  "+data[element]['ISBN']+" | Total Number:  "+data[element]['Total_Number']+" | Number Checked Out:  "+data[element]['No_Checked_Out'];
-                            btn.innerHTML = "Checkout";
+                            btn.innerHTML = "Check";
                             btn.addEventListener('click', function () {
                                 var postdata = {ISBN: data[element]['ISBN'], bookname: data[element]['Name'], student_id: parseInt(inp.value), bookid: data[element]['School_ID'], due_date: inp2.value};
                                 $.post(
@@ -182,6 +187,7 @@
         <button onclick="listTeachers()"> Display All Teachers </button>
         <button onclick="listParents()"> Display All Parents </button>
         <button onclick="listBooks()"> Display All Books </button>
+        <button onclick="signOut()"> Sign Out </button>
         <!-- place to print the display options -->
         <ul id="list"> </ul>
         <h2>Add New Admin: </h2>
@@ -208,7 +214,7 @@
         Search For Book:
     </h2>
         <input type="text" id="search-name"/>
-        <button type="button" onclick="searchBook()"></button>
+        <button type="button" onclick="searchBook()"> Search </button>
         <ul id="booklist"></ul>
     </body>
 </html>
