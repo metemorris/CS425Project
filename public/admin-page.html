@@ -4,9 +4,10 @@
 		<title> Admin Page</title>
 		<link href="Styles/style2.css" rel = "stylesheet" />
 		<link rel="icon" href="Images/m.png">
-        <script src="Scripts/alert.js"></script>
         <script src="Scripts/jquery-3.1.1.js"></script>
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script>
             //list all admins on below textbox
              var listAdmins = function(){
@@ -18,6 +19,7 @@
                     $("#list").empty();
                     for(element in data) {
                         var elem = document.createElement("li");
+                        elem.className = "list-group-item";
                         elem.innerHTML = data[element]['Admin_ID']+ ": " + data[element]['Password'];
                         list.appendChild(elem);
                     }
@@ -32,6 +34,7 @@
                     $("#list").empty();
                     for(element in data) {
                         var elem = document.createElement("li");
+                        elem.className = "list-group-item";
                         elem.innerHTML =  "Name: "+data[element]['First_Name']+" " + data[element]['Last_Name']+" | ID:  "+data[element]['Student_ID']+" | Password:  "+data[element]['Password'];
                         list.appendChild(elem);
                     }
@@ -47,6 +50,7 @@
                     $("#list").empty();
                     for(element in data) {
                         var elem = document.createElement("li");
+                        elem.className = "list-group-item";
                         elem.innerHTML =  "Name: "+data[element]['First_Name']+" " + data[element]['Last_Name']+" | ID:  "+data[element]['ID']+" | Password:  "+data[element]['Password'];
                         list.appendChild(elem);
                     }
@@ -63,6 +67,7 @@
                     $("#list").empty();
                     for(element in data) {
                         var elem = document.createElement("li");
+                        elem.className = "list-group-item";
                         elem.innerHTML =  "Name: "+data[element]['First_Name']+" " + data[element]['Last_Name']+" | ID:  "+data[element]['ParentGuardian_ID']+" | Password:  "+data[element]['Password'];
                         list.appendChild(elem);
                     }
@@ -79,6 +84,7 @@
                     $("#list").empty();
                     for(element in data) {
                         var elem = document.createElement("li");
+                        elem.className = "list-group-item";
                         elem.innerHTML =  "Name: "+data[element]['Name']+" | ID:  "+data[element]['ISBN']+" | Total Number:  "+data[element]['Total_Number']+" | Number Checked Out:  "+data[element]['No_Checked_Out'];
                         list.appendChild(elem);
                     }
@@ -180,41 +186,104 @@
 	<body>
 		<script src="login.js"></script>
 
-		<h1> ADMIN PAGE </h1>
+        <div class="jumbotron">
+            <h1 class="display-5"> Admin Home </h1>
+            <p class="lead"> LUSe the resources below to manage library data.</p>
+            <hr class="my-4">
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <button onclick="listAdmins()" class="btn btn-secondary"> Display All Admins </button>
+                    <button onclick="listStudents()" class="btn btn-secondary"> Display All Students </button>
+                    <button onclick="listTeachers()" class="btn btn-secondary"> Display All Teachers </button>
+                    <button onclick="listParents()" class="btn btn-secondary"> Display All Parents </button>
+                    <button onclick="listBooks()" class="btn btn-secondary"> Display All Books </button>
+                    <button onclick="signOut()" class="btn btn-secondary"> Sign Out </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <ul id="list" class="list-group"> </ul>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <h2 class="display-6">Add New Admin: </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <form name="newAdmin">
+                        <div class="form-group">
+                            <label for="adminid"> Administrator ID: </label>
+                            <input type="text" class="form-control" name="userid" id="adminid"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="adminPass"> Password: </label>
+                            <input type="text" class="form-control" name="pswrd" id="adminPass"/>
+                        </div>
+                        <input type="button" class="btn btn-primary" onclick="addAdmin()" value="Add Admin"/>
+                        <input type="reset" class="btn btn-secondary" value="Cancel"/>
+                    </form>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <h2 class="display-6"> Delete Admin: </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <form name="deleteAdmin">
+                        <div class="form-group">
+                            <label for="deleteadminid"></label>
+                            <input type="text" class="form-control" name="userid" id="deleteadminid"/>
+                        </div>
+                        <input type="button" class="btn btn-primary" onclick="deleteX()" value="Delete Admin"/>
+                    </form>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <h2 class="display-6"> Update Admin: </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <form name="updateAdmin">
+                        <div class="form-group">
+                            <label for="updateadminid"> Administrator ID: </label>
+                            <input class="form-control" type="text" name="userid" id="updateadminid"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="updatePass"> New Password: </label>
+                            <input class="form-control" type="password" name="pswrd" id="updatePass"/>
+                        </div>
+                        <input type="button" class="btn btn-primary" onclick="updateX()" value="Update Password"/>
+                    </form>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <h2 class="display-6"> Search For Book: </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="search-name"/>
+                        </div>
+                        <button class="btn btn-primary" type="button" onclick="searchBook()"> Search </button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <ul class="list-group" id="booklist"></ul>
+            </div>
 
-        <button onclick="listAdmins()"> Display All Admins </button>
-        <button onclick="listStudents()"> Display All Students </button>
-        <button onclick="listTeachers()"> Display All Teachers </button>
-        <button onclick="listParents()"> Display All Parents </button>
-        <button onclick="listBooks()"> Display All Books </button>
-        <button onclick="signOut()"> Sign Out </button>
+        </div>
         <!-- place to print the display options -->
-        <ul id="list"> </ul>
-        <h2>Add New Admin: </h2>
-        <form name="newAdmin">
-            Administrator ID: <input type="text" name="userid" id="adminid"/>
-            Password: <input type="password" name="pswrd" id="adminPass"/>
-            <input type="button" onclick="addAdmin()" value="Add Admin"/>
-            <input type="reset" value="Cancel"/>
-        </form>
-        <h2>Delete Admin: </h2>
-         <form name="deleteAdmin">
-            Administrator ID: <input type="text" name="userid" id="deleteadminid"/>
-            <input type="button" onclick="deleteX()" value="Delete Admin"/>
-        </form>
-        <h2>Update Admin: </h2>
-        <form name="updateAdmin">
-            Administrator ID: <input type="text" name="userid" id="updateadminid"/>
-            New Password: <input type="password" name="pswrd" id="updatePass"/>
-            <input type="button" onclick="updateX()" value="Update Password"/>
-        </form>
-        <button class="btn btn-primary" name="Go to Login page" onclick="loginPage()">Go to Login page </button>
-
-    <h2>
-        Search For Book:
-    </h2>
-        <input type="text" id="search-name"/>
-        <button type="button" onclick="searchBook()"> Search </button>
-        <ul id="booklist"></ul>
     </body>
 </html>

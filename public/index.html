@@ -26,11 +26,16 @@
 	<body>
 		<script src="login.js"></script>
 
-		<h1 class="display-4"> Login portal </h1>
-		<button class="btn btn-primary" name="I'm a student" onclick="toggleStudent()">Student login </button>
-		<button class="btn btn-primary" name="I'm a parent" onclick="toggleParent()">Parent login </button>
-		<button class="btn btn-primary" name="I'm a teacher" onclick="toggleTeacher()">Teacher login </button>
-		<button class="btn btn-primary" name="I'm an admin" onclick="toggleAdmin()">Admin login </button>
-
+		<div class="jumbotron">
+			<h1 class="display-5"> Login Portal </h1>
+			<p class="lead"> Pick a user type to log in to the system.</p>
+			<hr class="my-4">
+		</div>
+		<div class="container-fluid">
+			<button class="btn btn-primary" name="I'm a student" onclick="toggleStudent()">Student login </button>
+			<button class="btn btn-primary" name="I'm a parent" onclick="toggleParent()">Parent login </button>
+			<button class="btn btn-primary" name="I'm a teacher" onclick="toggleTeacher()">Teacher login </button>
+			<button class="btn btn-primary" name="I'm an admin" onclick="toggleAdmin()">Admin login </button>
+		</div>
 	</body>
 </html>
