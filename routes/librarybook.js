@@ -12,7 +12,7 @@ const sqlFunctions = require("./functions/sqlFunctions.js");
 //search a book by name
 router.get('/bookname/:id',function (req,res){
   var bookname = req.params.id;
-  sqlFunctions.selectFunction("SELECT * FROM LibraryBook WHERE name= '"+bookname+"'",function(response){
+  sqlFunctions.selectFunction("SELECT * FROM LibraryBook WHERE name LIKE '%"+bookname+"%'",function(response){
     res.json(response);
   });
 })
