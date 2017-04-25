@@ -4,13 +4,65 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script>
+
+      window.onload = function WindowLoad(event) {
+          var id = localStorage.getItem('parentid');
+          console.log(id);
+          if(id != null) {
+              window.location.href = '/parent-page.html?id=' + id;
+          }
+      }
+
+  //This is how to get parent password
+  var getparentPassword = function(callback) {
+    $.get(
+      "/parent/password/" + document.getElementById("parentid").value,
+      {},
+      function(data){
+        retval = (JSON.stringify(data));
+        return callback(retval);
+      }
+    )
+  }
+  //This is how to check login info
+  function check(form) {
+    getparentPassword(function(response){
+
+      const realPass = JSON.parse(response)[0]['password'];
+
+      if(realPass == document.getElementById("parentPass").value) {
+         alert("Success!" + document.getElementById("parentPass").value);
+         localStorage.setItem('parentid', document.getElementById("parentid").value);
+         var id = localStorage.getItem('parentid');
+         window.location.href = '/parent-page.html?id=' + id;
+       }
+      else {
+        alert("Error!")
+       }
+    })
+  }
+  </script>
 </head>
 <div class="jumbotron">
     <h1 class="display-5"> This is the Parent page. </h1>
-    <p class="lead"> Parent Page info goes here :D</p>
+    <p class="lead"> Use Credentials To Log In</p>
     <hr class="my-4">
 </div>
 <div class="container-fluid">
-    <button class="btn btn-primary" name="Get Info" onclick="getParent()">Get parent </button>
+
+  <form name="login">
+    <div class="form-group">
+      <label for="parentid"> Parent ID: </label>
+      <input type="text" class="form-control" name="userid" id="parentid"/>
+    </div>
+    <div class="form-group">
+      <label for="parentPass"> Password: </label>
+      <input type="password" name="pswrd" class="form-control" id="parentPass"/>
+    </div>
+    <input type="button" onclick="check(this.form)" value="Login" class="btn btn-primary"/>
+    <input type="reset" value="Cancel" class="btn btn-secondary"/>
+  </form>
 </div>
+
 </html>

@@ -1,0 +1,66 @@
+
+<html>
+	<head>
+		<title> Teacher Page </title>
+		<link href="Styles/style2.css" rel = "stylesheet" />
+		<link rel="icon" href="Images/m.png">
+        <script src="Scripts/jquery-3.1.1.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <script src="login.js"></script>
+        <script>
+        //get amount due
+		var listClasses = function(){
+            var id = localStorage.getItem('teacherid');
+             $.get(
+                "teacher/classes/"+id,
+                {},
+                function(data){
+                    var list = document.getElementById('list');
+                    $("#list").empty();
+                    for(element in data) {
+                        var elem = document.createElement("li");
+                        elem.className = "list-group-item";
+                        elem.innerHTML = "Course Number: "+data[element]['Course_Number']+ "  |    Course Name: " + data[element]['Name'];
+                        list.appendChild(elem);
+                    }
+                })
+            }
+
+            var signOut = function() {
+                localStorage.removeItem('teacherid');
+                window.location.href = '/index.html';
+            }
+
+        </script>
+
+	</head>
+	<body>
+		<script src="login.js"></script>
+
+		<div class="jumbotron">
+            <h1 class="display-5"> Teacher Home </h1>
+            <p class="lead"> Use the resources below to manage teacher account</p>
+            <ul class="list-group" id="amountdue"> </ul>
+            <hr class="my-4">
+        </div>
+       <div class="container-fluid">
+          <div class="row">
+             <div class="col">
+                <button onclick="listClasses()" class="btn btn-secondary"> Show Classes </button>
+                <button onclick="signOut()" class="btn btn-secondary"> Sign Out </button>
+            </div>
+        </div>
+        <!-- place to print the display options -->
+        <div class="row">
+                <div class="col">
+                    <ul id="list" class="list-group"> </ul>
+                </div>
+        </div>
+
+        
+
+
+	</body>
+</html>
