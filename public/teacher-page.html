@@ -11,6 +11,14 @@
         <script src="login.js"></script>
         <script>
         //get amount due
+
+        window.onload = function WindowLoad(event) {
+            var id = localStorage.getItem('teacherid');
+            if(id == null) {
+                window.location.href = '/teacher.html';
+            }
+        }
+
 		var listClasses = function(){
             var id = localStorage.getItem('teacherid');
              $.get(

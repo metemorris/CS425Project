@@ -11,6 +11,7 @@ router.get('/checkedoutbooks',function (req,res){
   var userid = req.params.id;
   console.log(userid)
   sqlFunctions.selectFunction("SELECT * FROM CheckedOutBooks",function(response){
+    //response.
     res.json(response);
   });
 })

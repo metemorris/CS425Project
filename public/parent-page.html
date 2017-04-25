@@ -9,7 +9,14 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script src="login.js"></script>
         <script>
-  
+
+            window.onload = function WindowLoad(event) {
+                var id = localStorage.getItem('parentid');
+                if(id == null) {
+                    window.location.href = '/parent.html';
+                }
+            }
+
             var signOut = function() {
                 localStorage.removeItem('parentid');
                 window.location.href = '/index.html';
@@ -27,7 +34,7 @@
                     for(element in data) {
                         var elem = document.createElement("li");
                         elem.className = "list-group-item";
-                        elem.innerHTML =  "Name: "+data[element]['Name']+" | ID:  "+data[element]['ISBN']+" | Date Out:  "+data[element]['DateOut']+" | Due Date:  "+data[element]['DueDate'];
+                        elem.innerHTML =  "Name: "+data[element]['Name']+" | ID:  "+data[element]['ISBN']+" | Date Out:  "+new Date(data[element]['DateOut']).toDateString()+" | Due Date:  "+new Date(data[element]['DueDate']).toDateString();
                         list.appendChild(elem);
                     }
                 })

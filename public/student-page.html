@@ -11,8 +11,13 @@
         <script src="login.js"></script>
         <script>
         //get amount due
+
         window.onload = function() {
+
             var id = localStorage.getItem('studentid');
+            if(id == null) {
+                window.location.href = '/student.html';
+            }
             $.get(
                 "/librarybook/overduebooks/"+id,
                 {},
@@ -79,7 +84,7 @@
                     for(element in data) {
                         var elem = document.createElement("li");
                         elem.className = "list-group-item";
-                        elem.innerHTML =  "Name: "+data[element]['Name']+" | ID:  "+data[element]['ISBN']+" | Date Out:  "+data[element]['DateOut']+" | Due Date:  "+data[element]['DueDate'];
+                        elem.innerHTML =  "Name: "+data[element]['Name']+" | ID:  "+ data[element]['ISBN']+" | Date Out:  "+new Date(data[element]['DateOut']).toDateString()+" | Due Date:  "+ new Date(data[element]['DueDate']).toDateString();
                         list.appendChild(elem);
                     }
                 })
