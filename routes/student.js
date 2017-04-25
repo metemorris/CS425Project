@@ -87,6 +87,9 @@ router.get('/classbooks/:id',function (req,res){
   });
 })
 
+//select parent and student name for student id
+
+
 
 
 module.exports = router;

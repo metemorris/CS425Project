@@ -93,7 +93,7 @@
 
            var listOverdueBooks = function(){
                $.get(
-                "/librarybook/overduebooks/",
+                "/librarybook/overduebooks",
                 {},
                 function(data){
                     var list = document.getElementById('list');
@@ -225,6 +225,23 @@
                     }
                 })
             }
+           var listAmountDue = function(){
+               $.get(
+                "/librarybook/amountdue",
+                {},
+                function(data){
+                    var list = document.getElementById('list');
+                    $("#list").empty();
+                    for(element in data) {
+                        var elem = document.createElement("li");
+                        elem.className = "list-group-item";
+                        elem.innerHTML =  "Student Name: "+data[element]['stFname']+" "+data[element]['stMname']+" "+data[element]['stLname']+" | Parent Name:  "+data[element]['pgFname']+" "+data[element]['pgMname']+" "+data[element]['pgLname']+" | Amount Due:  $"+data[element]['AmountDue'];
+                        list.appendChild(elem);
+                    }
+                })
+            }
+
+            
 
 
 
@@ -249,6 +266,7 @@
                     <button onclick="listParents()" class="btn btn-secondary"> Display All Parents </button>
                     <button onclick="listBooks()" class="btn btn-secondary"> Display All Books </button>
                     <button onclick="listOverdueBooks()" class="btn btn-secondary"> List Overdue Books</button>
+                    <button onclick="listAmountDue()" class="btn btn-secondary"> Display Charge</button>
                     <button onclick="signOut()" class="btn btn-secondary"> Sign Out </button>
                 </div>
             </div>
