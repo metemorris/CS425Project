@@ -128,5 +128,13 @@ router.post('/update',function (req,res){
 })
 
 
+//search a student by name
+router.get('/studentname/:id',function (req,res){
+  var name = req.params.id;
+  sqlFunctions.selectFunction("SELECT * FROM Student WHERE First_Name LIKE '%"+name+"%' OR Last_Name LIKE '%"+name+"%'",function(response){
+    res.json(response);
+  });
+})
+
 
 module.exports = router;

@@ -61,6 +61,14 @@ router.post('/update',function (req,res){
   });
 })
 
+//search a teacher by name
+router.get('/teachername/:id',function (req,res){
+  var teachername = req.params.id;
+  sqlFunctions.selectFunction("SELECT * FROM Teacher WHERE First_Name LIKE '%"+teachername+"%' OR Last_Name LIKE '%"+teachername+"%'",function(response){
+    res.json(response);
+  });
+})
+
 
 
 module.exports = router;

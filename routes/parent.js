@@ -62,6 +62,12 @@ router.post('/update',function (req,res){
 })
 
 
-
+//search a parent by name
+router.get('/parentname/:id',function (req,res){
+  var parentname = req.params.id;
+  sqlFunctions.selectFunction("SELECT * FROM ParentGuardian WHERE First_Name LIKE '%"+parentname+"%' OR Last_Name LIKE '%"+parentname+"%'",function(response){
+    res.json(response);
+  });
+})
 
 module.exports = router;
