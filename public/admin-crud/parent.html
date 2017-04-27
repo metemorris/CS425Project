@@ -9,7 +9,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <script>
         var add = function () {
-            const inp = {fname: $("#firstName").val(), mname: $("#middleName").val(), lname: $("#lastName").val(), password: $("#pass").val(), studentid: $("#studentid").val()};
+            const inp = {fname: $("#firstName").val(), mname: $("#middleName").val(), lname: $("#lastName").val(), password: $("#pass").val(), sid: $("#studentid").val()};
             $.post(
                 "/parent",
                 inp,
@@ -20,6 +20,7 @@
 
         var search = function () {
             $('#list').empty();
+            //header
             const item =  $("<li class='list-group-item active'><div class='col'> First Name </div> <div class='col'> Middle Name </div> <div class='col'> Last Name </div> <div class='col'> Password </div>  <div class='col'> Modify </div> <div class='col'> Delete </div> </li>");
             $('#list').append(item);
             $.get(
@@ -129,7 +130,7 @@
         <a class="btn btn-secondary mx-3" href="book.html"> Books </a>
         <a class="btn btn-secondary mx-3" href="class.html"> Class </a>
         <a class="btn btn-secondary mx-3" href="student.html"> Student </a>
-        <a class="btn btn-secondary mx-3" href="parent.html"> parent </a>
+        <a class="btn btn-secondary mx-3" href="teacher.html"> Teacher </a>
         <a class="btn btn-primary text-white mx-3" href="parent.html"> Parent </a>
     </div>
 
@@ -138,12 +139,12 @@
     <div class="parent">
         <div class="row">
             <div class="col">
-                <h3 class="display-5"> parent Data: </h3>
+                <h3 class="display-5"> Parent Data: </h3>
             </div>
         </div>
         <div class="row mt-2">
             <div class="col">
-                <h5 class="display-6"> Add a parent: </h5>
+                <h5 class="display-6"> Add a Parent: </h5>
             </div>
         </div>
         <form name="addparent" class="row align-center">
