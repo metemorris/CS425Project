@@ -59,7 +59,7 @@ router.get('/overduebooks',function (req,res){
 
 //list all amountdue
 router.get('/amountdue',function (req,res){
-  sqlFunctions.selectFunction("SELECT st.First_Name as stFname,st.Middle_Name as stMname,st.Last_Name as stLname,pg.First_Name as pgFname,pg.Middle_Name as pgMname,pg.Last_Name as pgLname,COUNT(*)*15 as AmountDue FROM CheckedOutBooks cb,ParentGuardian pg,Student st WHERE cb.Student_ID=pg.Student_ID AND st.Student_ID=cb.Student_ID AND st.Student_ID=pg.Student_ID AND (DATE(NOW()) > DATE(cb.DueDate)) GROUP BY cb.Student_ID",function(response){
+  sqlFunctions.selectFunction("SELECT DISTINCT st.Student_ID, st.First_Name as stFname,st.Middle_Name as stMname,st.Last_Name as stLname,pg.First_Name as pgFname,pg.Middle_Name as pgMname,pg.Last_Name as pgLname, COUNT(st.Student_ID)*15 as AmountDue FROM CheckedOutBooks cb,ParentGuardian pg,Student st WHERE cb.Student_ID=pg.Student_ID AND st.Student_ID=cb.Student_ID AND st.Student_ID=pg.Student_ID AND (DATE(NOW()) > DATE(cb.DueDate)) GROUP BY cb.Student_ID, st.Student_ID, pg.Student_ID",function(response){
     res.json(response);
   });
 })
