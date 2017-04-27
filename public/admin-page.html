@@ -171,16 +171,20 @@
                         $("#booklist").empty();
                         for(element in data) {
                             var elem = document.createElement("li");
+                            elem.className = "list-group-item";
                             var div = document.createElement("div");
                             var btn = document.createElement("button");
+                            btn.className = "btn btn-primary"
                             var inp = document.createElement("input");
                             var inp2 = document.createElement("input");
                             inp.type = "number";
+                            inp.className = "form-control";
                             inp.placeholder = "Enter student id: ";
                             inp2.type = "text";
+                            inp2.className = "form-control";
                             inp2.placeholder = "2017-12-31";
                             div.innerHTML =  "Name: "+data[element]['Name']+" | ID:  "+data[element]['ISBN']+" | Total Number:  "+data[element]['Total_Number']+" | Number Checked Out:  "+data[element]['No_Checked_Out'];
-                            btn.innerHTML = "Check";
+                            btn.innerHTML = "Check In";
                             btn.addEventListener('click', function () {
                                 var postdata = {ISBN: data[element]['ISBN'], bookname: data[element]['Name'], student_id: parseInt(inp.value), bookid: data[element]['School_ID'], due_date: inp2.value};
                                 $.post(
@@ -238,15 +242,14 @@
                     for(element in data) {
                         var elem = document.createElement("li");
                         elem.className = "list-group-item";
-                        var id = data[element]['SID'];
-                        console.log(id);
-                        var edit = document.createElement("button"); edit.className="btn btn-info edit"; edit.textContent = "See Parents";
+                        var edit = document.createElement("button"); edit.className="btn btn-info mx-4"; edit.textContent = "See Parents";
                         elem.innerHTML =  "Student Name: "+data[element]['stFname']+" "+data[element]['stMname']+" "+data[element]['stLname']+" |  Amount Due:  $"+data[element]['AmountDue'];
                         list.appendChild(elem);
-                        list.appendChild(edit);
+                        elem.id = data[element]['SID'];
+                        elem.appendChild(edit);
                         edit.addEventListener('click', function (event) {
-                            alert(id);
-                            alert(event.target.parentNode.parentNode.id);
+                            alert(event.target.parentNode.id);
+                            var id = event.target.parentNode.id;
                             $.get(
                                 "student/parents/"+id,
                                 {},
@@ -295,6 +298,7 @@
                     <button onclick="listOverdueBooks()" class="btn btn-secondary"> List Overdue Books</button>
                     <button onclick="listAmountDue()" class="btn btn-secondary"> Display Charge</button>
                     <button onclick="signOut()" class="btn btn-secondary"> Sign Out </button>
+
                 </div>
             </div>
             <div class="row">
@@ -371,22 +375,24 @@
                 </div>
             </div>
             <div class="row">
-                <ul class="list-group" id="booklist"></ul>
+                <div class="col">
+                    <ul class="list-group" id="booklist"></ul>
+                </div>
             </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col">
-                <h2 class="display-6"> Check In Book: </h2>
+            <div class="row mt-4">
+                <div class="col">
+                    <h2 class="display-6"> Check In Book: </h2>
+                </div>
             </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col">
-                <button onclick="listCheckedOutBooks()" class="btn btn-primary"> List Checked Out Books </button>
+            <div class="row mt-4">
+                <div class="col">
+                    <button onclick="listCheckedOutBooks()" class="btn btn-primary"> List Checked Out Books </button>
+                </div>
             </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col">
-                <ul id="chekedoutbooklist" class="list-group"> </ul>
+            <div class="row">
+                <div class="col">
+                    <ul id="chekedoutbooklist" class="list-group"> </ul>
+                </div>
             </div>
         </div>
       
