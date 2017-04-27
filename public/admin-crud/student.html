@@ -9,50 +9,50 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <script>
         var add = function () {
-
-            const inp = {name: $("#bookName").val(), isbn: $("#bookISBN").val(), totalno: $("#bookQty").val(), school_id: $("#schoolID").val()};
+            const inp = {fname: $("#firstName").val(), mname: $("#middleName").val(), lname: $("#lastName").val(), password: $("#pass").val(), advisorid: $("#staff").val(), sid: $("#studentID").val()};
             $.post(
-                "/librarybook/addbooklib",
+                "/student",
                 inp,
                 function(data){
-                    alert(data);
+                    alert(JSON.stringify(data));
                 });
         };
 
-        var searchBooks = function () {
-            $('#bookList').empty();
-            const item =  $("<li class='list-group-item active'><div class='col'> Name </div> <div class='col'> ISBN </div> <div class='col'> Qty </div> <div class='col'> Checked Out </div> <div class='col'> School ID </div> <div class='col'> Modify </div> <div class='col'> Delete </div> </li>");
-            $('#bookList').append(item);
+        var search = function () {
+            $('#list').empty();
+            const item =  $("<li class='list-group-item active'><div class='col'> First Name </div> <div class='col'> Middle Name </div> <div class='col'> Last Name </div> <div class='col'> Password </div> <div class='col'> Adviser ID </div>  <div class='col'> Modify </div> <div class='col'> Delete </div> </li>");
+            $('#list').append(item);
             $.get(
-                "/librarybook/bookname/" + $("#name").val(),
+                "/student/studentname/" + $("#name").val(),
                 {},
                 function(data){
                     var list = data;
                     for(var elem in list) {
 
-                        var name = document.createElement("div"); name.className = "col";
-                        var nameText = document.createElement("p"); nameText.textContent = list[elem]['Name'];
-                        var nameEdit = document.createElement("input"); nameEdit.type = "text"; nameEdit.className = "form-control"; nameEdit.value = list[elem]['Name']; nameEdit.style.display = 'none';
-                        name.appendChild(nameText); name.appendChild(nameEdit);
+                        var fname = document.createElement("div"); fname.className = "col";
+                        var fnameText = document.createElement("p"); fnameText.textContent = list[elem]['First_Name'];
+                        var fnameEdit = document.createElement("input"); fnameEdit.type = "text"; fnameEdit.className = "form-control"; fnameEdit.value = list[elem]['First_Name']; fnameEdit.style.display = 'none';
+                        fname.appendChild(fnameText); fname.appendChild(fnameEdit);
 
-                        var isbn = document.createElement("div");isbn.className = "col";
-                        var isbnText = document.createElement("p"); isbnText.textContent = list[elem]['ISBN'];
-                        var isbnEdit = document.createElement("input"); isbnEdit.type = "text"; isbnEdit.className = "form-control"; isbnEdit.value = list[elem]['ISBN']; isbnEdit.style.display = 'none';
-                        isbn.appendChild(isbnText); isbn.appendChild(isbnEdit);
+                        var mname = document.createElement("div");mname.className = "col";
+                        var mnameText = document.createElement("p"); mnameText.textContent = list[elem]['Middle_Name'];
+                        var mnameEdit = document.createElement("input"); mnameEdit.type = "text"; mnameEdit.className = "form-control"; mnameEdit.value = list[elem]['Middle_Name']; mnameEdit.style.display = 'none';
+                        mname.appendChild(mnameText); mname.appendChild(mnameEdit);
 
-                        var qty = document.createElement("div");qty.className = "col";
-                        var qtyText = document.createElement("p"); qtyText.textContent = list[elem]['Total_Number'];
-                        var qtyEdit = document.createElement("input"); qtyEdit.type = "number"; qtyEdit.className = "form-control"; qtyEdit.value = list[elem]['Total_Number']; qtyEdit.style.display = 'none';
-                        qty.appendChild(qtyText); qty.appendChild(qtyEdit);
+                        var lname = document.createElement("div");lname.className = "col";
+                        var lnameText = document.createElement("p"); lnameText.textContent = list[elem]['Last_Name'];
+                        var lnameEdit = document.createElement("input"); lnameEdit.type = "text"; lnameEdit.className = "form-control"; lnameEdit.value = list[elem]['Last_Name']; lnameEdit.style.display = 'none';
+                        lname.appendChild(lnameText); lname.appendChild(lnameEdit);
 
-                        var cqty = document.createElement("div");cqty.className = "col";
-                        var cqtyText = document.createElement("p"); cqtyText.textContent = list[elem]['No_Checked_Out'];
-                        var cqtyEdit = document.createElement("input"); cqtyEdit.type = "number"; cqtyEdit.className = "form-control"; cqtyEdit.value = list[elem]['No_Checked_Out']; cqtyEdit.style.display = 'none';
-                        cqty.appendChild(cqtyText); cqty.appendChild(cqtyEdit);
+                        var pass = document.createElement("div");pass.className = "col";
+                        var passText = document.createElement("p"); passText.textContent = list[elem]['Password'];
+                        var passEdit = document.createElement("input"); passEdit.type = "text"; passEdit.className = "form-control"; passEdit.value = list[elem]['Password']; passEdit.style.display = 'none';
+                        pass.appendChild(passText); pass.appendChild(passEdit);
 
-                        var scid = document.createElement("div"); scid.className = "col";
-                        var scidText = document.createElement("p"); scidText.textContent = list[elem]['School_ID'];
-                        scid.appendChild(scidText);
+                        var advisorid = document.createElement("div");advisorid.className = "col";
+                        var advisorText = document.createElement("p"); advisorText.textContent = list[elem]['StaffUserID'];
+                        var advisorEdit = document.createElement("input"); advisorEdit.type = "number"; advisorEdit.className = "form-control"; advisorEdit.value = list[elem]['StaffUserID']; advisorEdit.style.display = 'none';
+                        advisorid.appendChild(advisorText); advisorid.appendChild(advisorEdit);
 
                         var update = document.createElement("div"); update.className = "col";
                         var edit = document.createElement("button"); edit.className="btn btn-info edit"; edit.textContent = "Edit";
@@ -78,18 +78,19 @@
                             event.target.previousSibling.style.display = 'block';
 
                             const id = event.target.parentNode.parentNode.id;
-                            const name = $(`#${id}`).find("input")[0].value;
-                            const isbn = $(`#${id}`).find("input")[1].value;
-                            const qty = $(`#${id}`).find("input")[2].value;
-                            const cqty = $(`#${id}`).find("input")[3].value;
+                            const fname = $(`#${id}`).find("input")[0].value;
+                            const mname = $(`#${id}`).find("input")[1].value;
+                            const lname = $(`#${id}`).find("input")[2].value;
+                            const pass = $(`#${id}`).find("input")[3].value;
+                            const sid = $(`#${id}`).find("input")[4].value;
 
-                            const inp = {name: name, isbn: isbn, totalno: qty, checkedout: cqty}
+                            const inp = {fname: fname, mname: mname, lname: lname, password: pass, id: id, advisorid: sid}
 
                             $.post(
-                                "/librarybook/editbooklib",
+                                "/student/update",
                                 inp,
                                 function(data){
-                                    alert(data);
+                                    alert(JSON.stringify(data));
                                 });
 
                             //Change Input
@@ -98,9 +99,9 @@
                         });
                         del.addEventListener('click', function () {
                             //Delete Item
-                            const isbn = event.target.parentNode.parentNode.id;
+                            const id = event.target.parentNode.parentNode.id;
                             $.ajax({
-                                url: "/librarybook/" + isbn,
+                                url: "/student/" + id,
                                 type: 'DELETE',
                                 success: function(result) {
                                     // Do something with the result
@@ -112,15 +113,15 @@
 
                         var li = document.createElement("li");
                         li.className = "list-group-item";
-                        li.appendChild(name);
-                        li.appendChild(isbn);
-                        li.appendChild(qty);
-                        li.appendChild(cqty);
-                        li.appendChild(scid);
+                        li.appendChild(fname);
+                        li.appendChild(mname);
+                        li.appendChild(lname);
+                        li.appendChild(pass);
+                        li.appendChild(advisorid);
                         li.appendChild(update);
                         li.appendChild(deldiv);
-                        li.id = list[elem]['ISBN'];
-                        $('#bookList').append(li);
+                        li.id = list[elem]['Student_ID'];
+                        $('#list').append(li);
                     }
                 });
         }
@@ -141,7 +142,7 @@
 
 </div>
 <div class="container-fluid">
-    <div class="book">
+    <div class="student">
         <div class="row">
             <div class="col">
                 <h3 class="display-5"> Student Data: </h3>
@@ -153,6 +154,10 @@
             </div>
         </div>
         <form name="addstudent" class="row align-center">
+            <div class="col form-group">
+                <label for="staff"> Student ID:  </label>
+                <input class="form-control" type="number" name="staff" id="studentID"/>
+            </div>
             <div class="col form-group">
                 <label for="firstName"> First Name: </label>
                 <input class="form-control" type="text" name="firstName" id="firstName"/>
@@ -175,7 +180,7 @@
             </div>
             <div class="col form-group">
                 <label for="subBtn"> </label>
-                <input type="button" id="subBtn" class="form-control btn btn-primary mt-2" onclick="updateX()" value="Add Book"/>
+                <input type="button" id="subBtn" class="form-control btn btn-primary mt-2" onclick="add()" value="Add Student"/>
             </div>
         </form>
         <div class="row mt-2">
@@ -185,8 +190,8 @@
         </div>
         <form name="updatedelete" class="row align-center">
             <div class="col form-group">
-                <label for="studentID"> Student ID:  </label>
-                <input class="form-control" type="number" name="studentID" id="studentID"/>
+                <label for="name"> Student Name:  </label>
+                <input class="form-control" type="text" name="name" id="name"/>
             </div>
             <div class="col form-group">
                 <label for="subBtn"> </label>
