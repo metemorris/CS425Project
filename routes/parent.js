@@ -22,4 +22,25 @@ router.get('/books/:id',function (req,res){
   });
 })
 
+
+
+//CREATE PARENT
+router.post('',function (req,res){
+  console.log(req.body);
+  var id= req.body.parent_id;
+  var password = req.body.password;
+  var firstname= req.body.fname;
+  var lastname = req.body.lname;
+  var middlename= req.body.mname;
+  var studentid =req.body.sid;
+  console.log(id+password)
+  sqlFunctions.selectFunction("INSERT INTO ParentGuardian VALUES ("+id+",'"+firstname+",'"+lastname+",'"+middlename+",'"+password+",'"+studentid+")",function(response){
+
+    res.json(response); 
+  });
+})
+
+
+//UPDATE PARENT
+
 module.exports = router;

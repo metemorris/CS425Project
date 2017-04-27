@@ -65,6 +65,18 @@ router.get('/amountdue',function (req,res){
 })
 
 
+//add book
+router.post('/addbooklib',function (req,res){
+  console.log(req.body);
+  var school_id = req.body.school_id;
+  var isbn = req.body.isbn;
+  var name = req.body.name;
+  var totalno = req.body.totalno;
+  sqlFunctions.selectFunction("INSERT INTO `LibraryBook`(`School_ID`, `ISBN`, `Name`, `Total_Number`, `No_Checked_Out`) VALUES ("+school_id+","+isbn+",'"+name+"',"+totalno+",0)",function(response){
+    res.json(response); 
+  });
+})
+// remove book
 
 
 module.exports = router;
