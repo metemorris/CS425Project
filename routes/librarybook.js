@@ -64,7 +64,6 @@ router.get('/amountdue',function (req,res){
   });
 })
 
-
 //add book
 router.post('/addbooklib',function (req,res){
   console.log(req.body);
@@ -76,6 +75,7 @@ router.post('/addbooklib',function (req,res){
     res.json(response); 
   });
 })
+
 // remove book
 router.delete('/:isbn',function (req ,res){
   var isbn = req.params.isbn;

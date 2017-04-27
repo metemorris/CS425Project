@@ -9,6 +9,16 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <script>
 
+        var add = function () {
+
+            const inp = {name: $("#bookName").val(), isbn: $("#bookISBN").val(), totalno: $("#bookQty").val(), school_id: $("#schoolID").val()};
+            $.post(
+                "/librarybook/addbooklib",
+                inp,
+                function(data){
+                    alert(data);
+                });
+        };
 
         var searchBooks = function () {
             $('#bookList').empty();
@@ -132,8 +142,12 @@
                 <input class="form-control" type="number" name="qty" id="bookQty"/>
             </div>
             <div class="col form-group">
+                <label for=schoolID> School ID:  </label>
+                <input class="form-control" type="number" name="schoolID" id="schoolID"/>
+            </div>
+            <div class="col form-group">
                 <label for="subBtn"> </label>
-                <input type="button" id="subBtn" class="form-control btn btn-primary mt-2" onclick="updateX()" value="Add Book"/>
+                <input type="button" id="subBtn" class="form-control btn btn-primary mt-2" onclick="add()" value="Add Book"/>
             </div>
         </form>
         <div class="row mt-2">
