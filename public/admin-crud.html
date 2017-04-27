@@ -18,41 +18,58 @@
                 {name: "hello Java", ISBN: 223626929, qty: 15}
             ];
             for(var elem in list) {
-                console.log(elem);
+
                 var name = document.createElement("div"); name.className = "col";
                 var nameText = document.createElement("p"); nameText.textContent = list[elem]['name'];
-                var nameEdit = document.createElement("input"); nameEdit.type = "text"; nameEdit.className = "form-control"; nameEdit.placeholder = list[elem]['name']; nameEdit.style.display = 'none';
+                var nameEdit = document.createElement("input"); nameEdit.type = "text"; nameEdit.className = "form-control"; nameEdit.value = list[elem]['name']; nameEdit.style.display = 'none';
                 name.appendChild(nameText); name.appendChild(nameEdit);
 
                 var isbn = document.createElement("div");isbn.className = "col";
                 var isbnText = document.createElement("p"); isbnText.textContent = list[elem]['ISBN'];
-                var isbnEdit = document.createElement("input"); isbnEdit.type = "text"; isbnEdit.className = "form-control"; isbnEdit.placeholder = list[elem]['ISBN']; isbnEdit.style.display = 'none';
+                var isbnEdit = document.createElement("input"); isbnEdit.type = "text"; isbnEdit.className = "form-control"; isbnEdit.value = list[elem]['ISBN']; isbnEdit.style.display = 'none';
                 isbn.appendChild(isbnText); isbn.appendChild(isbnEdit);
 
                 var qty = document.createElement("div");qty.className = "col";
                 var qtyText = document.createElement("p"); qtyText.textContent = list[elem]['qty'];
-                var qtyEdit = document.createElement("input"); qtyEdit.type = "number"; qtyEdit.className = "form-control"; qtyEdit.placeholder = list[elem]['qty']; qtyEdit.style.display = 'none';
+                var qtyEdit = document.createElement("input"); qtyEdit.type = "number"; qtyEdit.className = "form-control"; qtyEdit.value = list[elem]['qty']; qtyEdit.style.display = 'none';
                 qty.appendChild(qtyText); qty.appendChild(qtyEdit);
 
                 var update = document.createElement("div"); update.className = "col";
-                var edit = document.createElement("button"); edit.className="btn btn-info"; edit.textContent = "Edit";
-                var save = document.createElement("button"); save.className="btn btn-success"; save.textContent = "Save"; save.style.display = 'none';
+                var edit = document.createElement("button"); edit.className="btn btn-info edit"; edit.textContent = "Edit";
+                var save = document.createElement("button"); save.className="btn btn-success save"; save.textContent = "Save"; save.style.display = 'none';
                 update.appendChild(edit); update.appendChild(save);
 
                 var deldiv = document.createElement("div"); deldiv.className = "col";
                 var del = document.createElement("button"); del.className="btn btn-danger"; del.textContent="Delete";
                 deldiv.appendChild(del);
 
-                edit.addEventListener('click', function () {
-                    edit.style.display = 'none';
-                    save.style.display = 'block';
+                edit.addEventListener('click', function (event) {
+                    event.target.style.display = 'none';
+                    event.target.nextSibling.style.display = 'block';
+
+                    const id = event.target.parentNode.parentNode.id;
+
+                    $(`#${id}`).find("p").hide();
+                    $(`#${id}`).find("input").show();
+
                 });
-                save.addEventListener('click', function () {
-                    save.style.display = 'none';
-                    edit.style.display = 'block';
+                save.addEventListener('click', function (event) {
+                    event.target.style.display = 'none';
+                    event.target.previousSibling.style.display = 'block';
+
+                    const id = event.target.parentNode.parentNode.id;
+                    const name = $(`#${id}`).find("input")[0].value;
+                    const isbn = $(`#${id}`).find("input")[1].value;
+                    const qty = $(`#${id}`).find("input")[2].value;
+
+                    //Change Input
+                    $(`#${id}`).find("input").hide();
+                    $(`#${id}`).find("p").show();
                 });
                 del.addEventListener('click', function () {
                     //Delete Item
+                    const isbn = event.target.parentNode.parentNode.id;
+
                 });
 
                 var li = document.createElement("li");
@@ -62,6 +79,7 @@
                 li.appendChild(qty);
                 li.appendChild(update);
                 li.appendChild(deldiv);
+                li.id = list[elem]['ISBN'];
                 $('#bookList').append(li);
             }
         }
