@@ -19,7 +19,7 @@ app.use(jsonParser.json());
 //directing webpage to html file in public
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/admin-crud',adminRoutes);
+app.use('/admin',adminRoutes);
 app.use('/student',studentRoutes);
 app.use('/parent',parentRoutes);
 app.use('/teacher',teacherRoutes);

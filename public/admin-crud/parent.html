@@ -9,9 +9,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <script>
         var add = function () {
-            const inp = {fname: $("#firstName").val(), mname: $("#middleName").val(), lname: $("#lastName").val(), password: $("#pass").val(), staffuserid: $("#staff").val()};
+            const inp = {fname: $("#firstName").val(), mname: $("#middleName").val(), lname: $("#lastName").val(), password: $("#pass").val(), studentid: $("#studentid").val()};
             $.post(
-                "/teacher",
+                "/parent",
                 inp,
                 function(data){
                     alert(JSON.stringify(data));
@@ -23,7 +23,7 @@
             const item =  $("<li class='list-group-item active'><div class='col'> First Name </div> <div class='col'> Middle Name </div> <div class='col'> Last Name </div> <div class='col'> Password </div>  <div class='col'> Modify </div> <div class='col'> Delete </div> </li>");
             $('#list').append(item);
             $.get(
-                "/teacher/teachername/" + $("#name").val(),
+                "/parent/parentname/" + $("#name").val(),
                 {},
                 function(data){
                     var list = data;
@@ -81,7 +81,7 @@
                             const inp = {fname: fname, lname: lname, mname: mname, password: password, id: id};
 
                             $.post(
-                                "/teacher/update",
+                                "/parent/update",
                                 inp,
                                 function(data){
                                     alert(JSON.stringify(data));
@@ -95,7 +95,7 @@
                             //Delete Item
                             const id = event.target.parentNode.parentNode.id;
                             $.ajax({
-                                url: "/teacher/" + id,
+                                url: "/parent/" + id,
                                 type: 'DELETE',
                                 success: function(result) {
                                     // Do something with the result
@@ -129,24 +129,24 @@
         <a class="btn btn-secondary mx-3" href="book.html"> Books </a>
         <a class="btn btn-secondary mx-3" href="class.html"> Class </a>
         <a class="btn btn-secondary mx-3" href="student.html"> Student </a>
-        <a class="btn btn-secondary mx-3" href="teacher.html"> Teacher </a>
+        <a class="btn btn-secondary mx-3" href="parent.html"> parent </a>
         <a class="btn btn-primary text-white mx-3" href="parent.html"> Parent </a>
     </div>
 
 </div>
 <div class="container-fluid">
-    <div class="teacher">
+    <div class="parent">
         <div class="row">
             <div class="col">
-                <h3 class="display-5"> Teacher Data: </h3>
+                <h3 class="display-5"> parent Data: </h3>
             </div>
         </div>
         <div class="row mt-2">
             <div class="col">
-                <h5 class="display-6"> Add a teacher: </h5>
+                <h5 class="display-6"> Add a parent: </h5>
             </div>
         </div>
-        <form name="addteacher" class="row align-center">
+        <form name="addparent" class="row align-center">
             <div class="col form-group">
                 <label for="firstName"> First Name: </label>
                 <input class="form-control" type="text" name="firstName" id="firstName"/>
@@ -164,22 +164,22 @@
                 <input class="form-control" type="text" name="pass" id="pass"/>
             </div>
             <div class="col form-group">
-                <label for="staff"> Staff User ID:  </label>
-                <input class="form-control" type="number" name="staff" id="staff"/>
+                <label for="studentid"> Student ID:  </label>
+                <input class="form-control" type="number" name="studentid" id="studentid"/>
             </div>
             <div class="col form-group">
                 <label for="subBtn"> </label>
-                <input type="button" id="subBtn" class="form-control btn btn-primary mt-2" onclick="add()" value="Add Teacher"/>
+                <input type="button" id="subBtn" class="form-control btn btn-primary mt-2" onclick="add()" value="Add parent"/>
             </div>
         </form>
         <div class="row mt-2">
             <div class="col">
-                <h5 class="display-6"> Search For Teacher: </h5>
+                <h5 class="display-6"> Search For parent: </h5>
             </div>
         </div>
         <form name="updatedelete" class="row align-center">
             <div class="col form-group">
-                <label for="name"> Teacher Name:  </label>
+                <label for="name"> parent Name:  </label>
                 <input class="form-control" type="text" name="name" id="name"/>
             </div>
             <div class="col form-group">
