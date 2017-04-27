@@ -109,7 +109,7 @@
                     for(element in data) {
                         var elem = document.createElement("li");
                         elem.className = "list-group-item";
-                        elem.innerHTML =  "Name: "+data[element]['Name']+" | ID:  "+data[element]['ISBN']+" | Date Out:  "+ new Date(data[element]['DateOut']).toDateString()+" | Due Date:  "+new Date(data[element]['DueDate']).toDateString();
+                        elem.innerHTML =  "Name: "+data[element]['Name']+" | ID:  "+data[element]['ISBN']+" | Date Out:  "+ new Date(data[element]['DateOut']).toDateString()+" | Due Date:  "+new Date(data[element]['DueDate']+" | Student ID:  ").toDateString()+" | Student ID:  "+data[element]['Student_ID'];
                         list.appendChild(elem);
                     }
                 })
@@ -238,8 +238,31 @@
                     for(element in data) {
                         var elem = document.createElement("li");
                         elem.className = "list-group-item";
-                        elem.innerHTML =  "Student Name: "+data[element]['stFname']+" "+data[element]['stMname']+" "+data[element]['stLname']+" | Parent Name:  "+data[element]['pgFname']+" "+data[element]['pgMname']+" "+data[element]['pgLname']+" | Amount Due:  $"+data[element]['AmountDue'];
+                        var id = data[element]['SID'];
+                        console.log(id);
+                        var edit = document.createElement("button"); edit.className="btn btn-info edit"; edit.textContent = "See Parents";
+                        elem.innerHTML =  "Student Name: "+data[element]['stFname']+" "+data[element]['stMname']+" "+data[element]['stLname']+" |  Amount Due:  $"+data[element]['AmountDue'];
                         list.appendChild(elem);
+                        list.appendChild(edit);
+                        edit.addEventListener('click', function (event) {
+                            alert(id);
+                            alert(event.target.parentNode.parentNode.id);
+                            $.get(
+                                "student/parents/"+id,
+                                {},
+                                function(data2){
+                                    var list = document.getElementById('list');
+                                    for(element in data2) {
+                                        alert("Parent Name: "+data2[element]['First_Name']+" "+data2[element]['Middle_Name']+" "+data2[element]['Last_Name']);
+                                        var elem = document.createElement("li");
+                                        elem.className = "list-group-item";
+                                        elem.innerHTML =  "Parent Name: "+data2[element]['First_Name']+" "+data2[element]['Middle_Name']+" "+data2[element]['Last_Name'];
+                                    }
+                                    
+                                }
+
+                            )
+                        });
                     }
                 })
             }
