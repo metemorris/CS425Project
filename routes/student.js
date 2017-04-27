@@ -88,11 +88,44 @@ router.get('/classbooks/:id',function (req,res){
 })
 
 
+//CREATE Student
+router.post('',function (req,res){
+  console.log(req.body);
+  var password = req.body.password;
+  var firstname= req.body.fname;
+  var lastname = req.body.lname;
+  var middlename= req.body.mname;
+  var studentid =req.body.sid;
+  var advisorid=req.body.advisorid;
+  sqlFunctions.selectFunction("INSERT INTO `Student`(`First_Name`, `Last_Name`, `Middle_Name`, `Password`, `Student_ID`,StaffUserID) VALUES ('"+firstname+"','"+lastname+"','"+middlename+"','"+password+"',"+studentid+","+advisorid+")",function(response){
 
-//CREATE NEW STUDENT
+    res.json(response); 
+  });
+})
 
 
-//DELETE STUDENT
+//deletestudent
+router.delete('/:id',function (req ,res){
+  var userid = req.params.id;
+  console.log(userid)
+  sqlFunctions.selectFunction("DELETE FROM Student WHERE Student_ID="+userid,function(response){
+    res.json(response);
+  });
+})
+
+//UPDATE Student
+router.post('/update',function (req,res){
+  console.log(req.body);
+  var userid = req.body.id;
+  var password = req.body.password;
+  var firstname= req.body.fname;
+  var lastname = req.body.lname;
+  var middlename= req.body.mname;
+  var advisorid=req.body.advisorid;
+  sqlFunctions.selectFunction("UPDATE Student SET `First_Name`='"+firstname+"',`Last_Name`='"+lastname+"',`Middle_Name`='"+middlename+"',`Password`='"+password+"',`StaffUserID`='"+advisorid+"' WHERE Student_ID="+userid,function(response){
+    res.json(response); 
+  });
+})
 
 
 
