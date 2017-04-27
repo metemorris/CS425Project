@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin | CRUD </title>
+    <script src="../Scripts/jquery-3.1.1.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script>
+
+
+        var searchBooks = function () {
+            $('#bookList').empty();
+            const item =  $("<li class='list-group-item active'><div class='col'> Name </div> <div class='col'> ISBN </div> <div class='col'> Qty </div> <div class='col'> Modify </div> <div class='col'> Delete </div> </li>");
+            $('#bookList').append(item);
+            var list = [
+                {name: "hello Node Js", ISBN: 123626929, qty: 35},
+                {name: "hello MYSQL", ISBN: 123226929, qty: 25},
+                {name: "hello Java", ISBN: 223626929, qty: 15}
+            ];
+            for(var elem in list) {
+
+                var name = document.createElement("div"); name.className = "col";
+                var nameText = document.createElement("p"); nameText.textContent = list[elem]['name'];
+                var nameEdit = document.createElement("input"); nameEdit.type = "text"; nameEdit.className = "form-control"; nameEdit.value = list[elem]['name']; nameEdit.style.display = 'none';
+                name.appendChild(nameText); name.appendChild(nameEdit);
+
+                var isbn = document.createElement("div");isbn.className = "col";
+                var isbnText = document.createElement("p"); isbnText.textContent = list[elem]['ISBN'];
+                var isbnEdit = document.createElement("input"); isbnEdit.type = "text"; isbnEdit.className = "form-control"; isbnEdit.value = list[elem]['ISBN']; isbnEdit.style.display = 'none';
+                isbn.appendChild(isbnText); isbn.appendChild(isbnEdit);
+
+                var qty = document.createElement("div");qty.className = "col";
+                var qtyText = document.createElement("p"); qtyText.textContent = list[elem]['qty'];
+                var qtyEdit = document.createElement("input"); qtyEdit.type = "number"; qtyEdit.className = "form-control"; qtyEdit.value = list[elem]['qty']; qtyEdit.style.display = 'none';
+                qty.appendChild(qtyText); qty.appendChild(qtyEdit);
+
+                var update = document.createElement("div"); update.className = "col";
+                var edit = document.createElement("button"); edit.className="btn btn-info edit"; edit.textContent = "Edit";
+                var save = document.createElement("button"); save.className="btn btn-success save"; save.textContent = "Save"; save.style.display = 'none';
+                update.appendChild(edit); update.appendChild(save);
+
+                var deldiv = document.createElement("div"); deldiv.className = "col";
+                var del = document.createElement("button"); del.className="btn btn-danger"; del.textContent="Delete";
+                deldiv.appendChild(del);
+
+                edit.addEventListener('click', function (event) {
+                    event.target.style.display = 'none';
+                    event.target.nextSibling.style.display = 'block';
+
+                    const id = event.target.parentNode.parentNode.id;
+
+                    $(`#${id}`).find("p").hide();
+                    $(`#${id}`).find("input").show();
+
+                });
+                save.addEventListener('click', function (event) {
+                    event.target.style.display = 'none';
+                    event.target.previousSibling.style.display = 'block';
+
+                    const id = event.target.parentNode.parentNode.id;
+                    const name = $(`#${id}`).find("input")[0].value;
+                    const isbn = $(`#${id}`).find("input")[1].value;
+                    const qty = $(`#${id}`).find("input")[2].value;
+
+                    //Change Input
+                    $(`#${id}`).find("input").hide();
+                    $(`#${id}`).find("p").show();
+                });
+                del.addEventListener('click', function () {
+                    //Delete Item
+                    const isbn = event.target.parentNode.parentNode.id;
+
+                });
+
+                var li = document.createElement("li");
+                li.className = "list-group-item";
+                li.appendChild(name);
+                li.appendChild(isbn);
+                li.appendChild(qty);
+                li.appendChild(update);
+                li.appendChild(deldiv);
+                li.id = list[elem]['ISBN'];
+                $('#bookList').append(li);
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="jumbotron">
+    <h1 class="display-5"> Admin CRUD </h1>
+    <p class="lead"> Add, delete, update data for library here</p>
+    <hr class="my-4">
+    <div class="row">
+        <a class="btn btn-secondary mx-3" href="book.html"> Books </a>
+        <a class="btn btn-primary text-white mx-3" href="class.html"> Class </a>
+        <a class="btn btn-secondary mx-3" href="student.html"> Student </a>
+        <a class="btn btn-secondary mx-3" href="teacher.html"> Teacher </a>
+    </div>
+
+</div>
+<div class="container-fluid">
+    <div class="book">
+        <div class="row">
+            <div class="col">
+                <h3 class="display-5"> Book Data: </h3>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <h5 class="display-6"> Add Book: </h5>
+            </div>
+        </div>
+        <form name="addbook" class="row align-center">
+            <div class="col form-group">
+                <label for="bookName"> Book Name: </label>
+                <input class="form-control" type="text" name="bookName" id="bookName"/>
+            </div>
+            <div class="col form-group">
+                <label for="bookISBN"> ISBN:  </label>
+                <input class="form-control" type="number" name="isbn" id="bookISBN"/>
+            </div>
+            <div class="col form-group">
+                <label for=bookQty> Qty:  </label>
+                <input class="form-control" type="number" name="qty" id="bookQty"/>
+            </div>
+            <div class="col form-group">
+                <label for="subBtn"> </label>
+                <input type="button" id="subBtn" class="form-control btn btn-primary mt-2" onclick="updateX()" value="Add Book"/>
+            </div>
+        </form>
+        <div class="row mt-2">
+            <div class="col">
+                <h5 class="display-6"> Search For Book: </h5>
+            </div>
+        </div>
+        <form name="updatedeletebook" class="row align-center">
+            <div class="col form-group">
+                <label for="bookName"> Book Name: </label>
+                <input class="form-control" type="text" name="bookName" id="bookName"/>
+            </div>
+            <div class="col form-group">
+                <label for="bookISBN"> ISBN:  </label>
+                <input class="form-control" type="number" name="isbn" id="bookISBN"/>
+            </div>
+            <div class="col form-group">
+                <label for="subBtn"> </label>
+                <input type="button" id="searchBtn" class="form-control btn btn-primary mt-2" onclick="searchBooks()" value="Search"/>
+            </div>
+        </form>
+        <ul class="list-group" id="bookList">
+            <li class="list-group-item active">
+                <div class="col"> Name </div>
+                <div class="col"> ISBN </div>
+                <div class="col"> Qty </div>
+                <div class="col"> Modify </div>
+                <div class="col"> Delete </div>
+            </li>
+            <li class="list-group-item">
+                <div class="col"> Introduction to Node JS</div>
+                <div class="col"> 1383279238932</div>
+                <div class="col"> 25 </div>
+                <div class="col"> <button class="btn btn-success"> Edit </button> </div>
+                <div class="col"> <button class="btn btn-danger"> Delete</button> </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

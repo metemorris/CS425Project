@@ -5,7 +5,7 @@
 //   if ( username == "test" && password == "test") {
 //   alert ("Login successfully");
 //
-//   window.location = "admin.html"; // Redirecting to other page.
+//   window.location = "book.html"; // Redirecting to other page.
 //   return false;
 //   }
 // }
@@ -26,7 +26,7 @@ function toggleTeacher() {
 }
 
 function toggleAdmin() {
-  alert ("You're an admin.")
+  alert ("You're an admin-crud.")
   window.location = "admin.html";
 }
 

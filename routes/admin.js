@@ -4,7 +4,7 @@ const router = express.Router();
 const sqlFunctions = require("./functions/sqlFunctions.js");
 
 
-//update admin password
+//update admin-crud password
 
 router.post('/password',function (req,res){
   console.log(req.body);
@@ -38,7 +38,7 @@ router.get('/password/:id',function (req,res){
 
 
 
-//delete admin
+//delete admin-crud
 
 router.delete('/:id',function (req ,res){
   var userid = req.params.id;
@@ -48,7 +48,7 @@ router.delete('/:id',function (req ,res){
   });
 })
 
-//add admin
+//add admin-crud
 
 router.post('',function (req,res){
   console.log(req.body);
