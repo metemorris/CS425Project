@@ -122,10 +122,8 @@
 
 
             var addAdmin = function() {
-                const id = document.getElementById("adminid").value;
                 const pass = document.getElementById("adminPass").value;
                 const inp = {
-                    admin_id: id,
                     password: pass
                 };
                 $.post(
@@ -289,10 +287,6 @@
             <div class="row">
                 <div class="col">
                     <form name="newAdmin">
-                        <div class="form-group">
-                            <label for="adminid"> Administrator ID: </label>
-                            <input type="text" class="form-control" name="userid" id="adminid"/>
-                        </div>
                         <div class="form-group">
                             <label for="adminPass"> Password: </label>
                             <input type="text" class="form-control" name="pswrd" id="adminPass"/>

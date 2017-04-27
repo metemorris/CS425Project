@@ -23,4 +23,14 @@ router.get('/classes/:id',function (req,res){
 
 //Teacher: see all students in your class
 
+
+
+
+//CREATE NEW TEACHER
+
+
+//DELETE TEACHER
+
+
+
 module.exports = router;

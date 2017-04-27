@@ -52,11 +52,9 @@ router.delete('/:id',function (req ,res){
 
 router.post('',function (req,res){
   console.log(req.body);
-  var id= req.body.admin_id
   var password = req.body.password
-  console.log(id+password)
-  sqlFunctions.selectFunction("INSERT INTO Admin VALUES ("+id+",'"+password+"')",function(response){
-
+  console.log(password)
+  sqlFunctions.selectFunction("INSERT INTO Admin (`Password`) VALUES ('"+password+"')",function(response){
     res.json(response); 
   });
 })
