@@ -12,12 +12,12 @@
 
         var searchBooks = function () {
             $('#bookList').empty();
-            const item =  $("<li class='list-group-item active'><div class='col'> Name </div> <div class='col'> ISBN </div> <div class='col'> Qty </div> <div class='col'> Modify </div> <div class='col'> Delete </div> </li>");
+            const item =  $("<li class='list-group-item active'><div class='col'> Name </div> <div class='col'> ISBN </div> <div class='col'> Qty </div> <div class='col'> Checked Out </div> <div class='col'> Modify </div> <div class='col'> Delete </div> </li>");
             $('#bookList').append(item);
             var list = [
-                {name: "hello Node Js", ISBN: 123626929, qty: 35},
-                {name: "hello MYSQL", ISBN: 123226929, qty: 25},
-                {name: "hello Java", ISBN: 223626929, qty: 15}
+                {name: "hello Node Js", ISBN: 123626929, checkedout:2, qty: 35},
+                {name: "hello MYSQL", ISBN: 123226929, checkedout:2,qty: 25},
+                {name: "hello Java", ISBN: 223626929, checkedout:2, qty: 15}
             ];
             for(var elem in list) {
 
@@ -35,6 +35,11 @@
                 var qtyText = document.createElement("p"); qtyText.textContent = list[elem]['qty'];
                 var qtyEdit = document.createElement("input"); qtyEdit.type = "number"; qtyEdit.className = "form-control"; qtyEdit.value = list[elem]['qty']; qtyEdit.style.display = 'none';
                 qty.appendChild(qtyText); qty.appendChild(qtyEdit);
+
+                var cqty = document.createElement("div");cqty.className = "col";
+                var cqtyText = document.createElement("p"); cqtyText.textContent = list[elem]['checkedout'];
+                var cqtyEdit = document.createElement("input"); cqtyEdit.type = "number"; cqtyEdit.className = "form-control"; cqtyEdit.value = list[elem]['checkedout']; cqtyEdit.style.display = 'none';
+                cqty.appendChild(cqtyText); qty.appendChild(cqtyEdit);
 
                 var update = document.createElement("div"); update.className = "col";
                 var edit = document.createElement("button"); edit.className="btn btn-info edit"; edit.textContent = "Edit";
@@ -79,6 +84,7 @@
                 li.appendChild(name);
                 li.appendChild(isbn);
                 li.appendChild(qty);
+                li.appendChild(cqty);
                 li.appendChild(update);
                 li.appendChild(deldiv);
                 li.id = list[elem]['ISBN'];
@@ -150,20 +156,6 @@
             </div>
         </form>
         <ul class="list-group" id="bookList">
-            <li class="list-group-item active">
-                <div class="col"> Name </div>
-                <div class="col"> ISBN </div>
-                <div class="col"> Qty </div>
-                <div class="col"> Modify </div>
-                <div class="col"> Delete </div>
-            </li>
-            <li class="list-group-item">
-                <div class="col"> Introduction to Node JS</div>
-                <div class="col"> 1383279238932</div>
-                <div class="col"> 25 </div>
-                <div class="col"> <button class="btn btn-success"> Edit </button> </div>
-                <div class="col"> <button class="btn btn-danger"> Delete</button> </div>
-            </li>
         </ul>
     </div>
 </div>

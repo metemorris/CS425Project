@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="768f5c66-6729-48d5-85e3-d55189b04383" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/admin-crud/class.html" afterPath="$PROJECT_DIR$/public/admin-crud/class.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/admin-crud/student.html" afterPath="$PROJECT_DIR$/public/admin-crud/student.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/admin-crud/teacher.html" afterPath="$PROJECT_DIR$/public/admin-crud/teacher.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/admin-crud/book.html" afterPath="$PROJECT_DIR$/public/admin-crud/book.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -51,7 +48,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="teacher.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="teacher.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/admin-crud/teacher.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="208">
@@ -93,14 +90,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="book.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="book.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/admin-crud/book.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3136">
-              <caret line="98" column="60" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="170" selection-end-column="7" />
+            <state relative-caret-position="100">
+              <caret line="157" column="45" lean-forward="false" selection-start-line="157" selection-start-column="45" selection-end-line="157" selection-end-column="45" />
               <folding>
-                <marker date="1493263706000" expanded="true" signature="3902:4469" ph="{...}" />
-                <marker date="1493263706000" expanded="true" signature="4530:4656" ph="{...}" />
+                <marker date="1493266018000" expanded="true" signature="4445:5012" ph="{...}" />
+                <marker date="1493266018000" expanded="true" signature="5073:5199" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -109,11 +106,9 @@
       <file leaf-file-name="librarybook.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/librarybook.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-739">
-              <caret line="64" column="2" lean-forward="false" selection-start-line="64" selection-start-column="2" selection-end-line="64" selection-end-column="2" />
-              <folding>
-                <marker date="1493265323000" expanded="true" signature="3011:3458" ph="/*...*/" />
-              </folding>
+            <state relative-caret-position="401">
+              <caret line="96" column="5" lean-forward="true" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -164,11 +159,11 @@
         <option value="$PROJECT_DIR$/public/admin-page.html" />
         <option value="$PROJECT_DIR$/public/admin-crud.html" />
         <option value="$PROJECT_DIR$/public/admin-crud/admin-crud.html" />
-        <option value="$PROJECT_DIR$/public/admin-crud/book.html" />
         <option value="$PROJECT_DIR$/routes/librarybook.js" />
         <option value="$PROJECT_DIR$/public/admin-crud/class.html" />
         <option value="$PROJECT_DIR$/public/admin-crud/student.html" />
         <option value="$PROJECT_DIR$/public/admin-crud/teacher.html" />
+        <option value="$PROJECT_DIR$/public/admin-crud/book.html" />
       </list>
     </option>
   </component>
@@ -379,15 +374,16 @@
       <workItem from="1493095555894" duration="383000" />
       <workItem from="1493096049378" duration="1066000" />
       <workItem from="1493165441924" duration="3289000" />
-      <workItem from="1493259721027" duration="5763000" />
+      <workItem from="1493259721027" duration="6156000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17558000" />
+    <option name="totallyTimeSpent" value="17951000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="873" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947146" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -397,7 +393,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980132" sideWeight="0.49753347" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32980132" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32980132" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -432,8 +428,8 @@
         <state relative-caret-position="832">
           <caret line="26" column="16" lean-forward="false" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="96" />
           <folding>
-            <marker date="1493263706000" expanded="true" signature="3902:4469" ph="{...}" />
-            <marker date="1493263706000" expanded="true" signature="4530:4656" ph="{...}" />
+            <marker date="1493266018000" expanded="true" signature="4445:5012" ph="{...}" />
+            <marker date="1493266018000" expanded="true" signature="5073:5199" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -782,17 +778,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/admin-crud/book.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3136">
-          <caret line="98" column="60" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="170" selection-end-column="7" />
-          <folding>
-            <marker date="1493263706000" expanded="true" signature="3902:4469" ph="{...}" />
-            <marker date="1493263706000" expanded="true" signature="4530:4656" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/admin-page.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="81">
@@ -806,16 +791,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/librarybook.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-739">
-          <caret line="64" column="2" lean-forward="false" selection-start-line="64" selection-start-column="2" selection-end-line="64" selection-end-column="2" />
-          <folding>
-            <marker date="1493265323000" expanded="true" signature="3011:3458" ph="/*...*/" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -840,6 +815,25 @@
         <state relative-caret-position="208">
           <caret line="82" column="23" lean-forward="true" selection-start-line="82" selection-start-column="23" selection-end-line="82" selection-end-column="23" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/librarybook.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="96" column="5" lean-forward="true" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/admin-crud/book.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="157" column="45" lean-forward="false" selection-start-line="157" selection-start-column="45" selection-end-line="157" selection-end-column="45" />
+          <folding>
+            <marker date="1493266018000" expanded="true" signature="4445:5012" ph="{...}" />
+            <marker date="1493266018000" expanded="true" signature="5073:5199" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
