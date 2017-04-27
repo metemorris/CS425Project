@@ -87,12 +87,12 @@ router.delete('/:isbn',function (req ,res){
 //editbook
 router.post('/editbooklib',function (req,res){
   console.log(req.body);
-  var school_id = req.body.school_id;
+  //var school_id = req.body.school_id;
   var isbn = req.body.isbn;
   var name = req.body.name;
   var totalno = req.body.totalno;
   var checkedout= req.body.checkedout;
-  sqlFunctions.selectFunction("UPDATE `LibraryBook` SET 'Name`= '"+name+"',`Total_Number`="+totalno+",`No_Checked_Out`="+checkedout+" WHERE `ISBN`="+isbn,function(response){
+  sqlFunctions.selectFunction("UPDATE `LibraryBook` SET `Name`= '"+name+"',`Total_Number`="+totalno+",`No_Checked_Out`="+checkedout+" WHERE `ISBN`="+isbn,function(response){
     res.json(response); 
   });
 })
