@@ -18,30 +18,51 @@
                 {name: "hello Java", ISBN: 223626929, qty: 15}
             ];
             for(var elem in list) {
+                console.log(elem);
                 var name = document.createElement("div"); name.className = "col";
-                var nameText = document.createElement("p"); nameText.textContent = elem['name'];
-                var nameEdit = document.createElement("input"); nameEdit.type = "text"; nameEdit.className = "form-control"; nameEdit.placeholder = elem['name']; nameEdit.style.display = 'none';
+                var nameText = document.createElement("p"); nameText.textContent = list[elem]['name'];
+                var nameEdit = document.createElement("input"); nameEdit.type = "text"; nameEdit.className = "form-control"; nameEdit.placeholder = list[elem]['name']; nameEdit.style.display = 'none';
                 name.appendChild(nameText); name.appendChild(nameEdit);
 
                 var isbn = document.createElement("div");isbn.className = "col";
-                var isbnText = document.createElement("p"); isbnText.textContent = elem['ISBN'];
-                var qty = document.createElement("div");qty.className = "col";qty.innerHTML = elem['qty'];
-                var update = document.createElement("div");update.className = "col";
-                var editbtn = document.createElement("button");
-                editbtn.addEventListener('click', function () {
+                var isbnText = document.createElement("p"); isbnText.textContent = list[elem]['ISBN'];
+                var isbnEdit = document.createElement("input"); isbnEdit.type = "text"; isbnEdit.className = "form-control"; isbnEdit.placeholder = list[elem]['ISBN']; isbnEdit.style.display = 'none';
+                isbn.appendChild(isbnText); isbn.appendChild(isbnEdit);
 
+                var qty = document.createElement("div");qty.className = "col";
+                var qtyText = document.createElement("p"); qtyText.textContent = list[elem]['qty'];
+                var qtyEdit = document.createElement("input"); qtyEdit.type = "number"; qtyEdit.className = "form-control"; qtyEdit.placeholder = list[elem]['qty']; qtyEdit.style.display = 'none';
+                qty.appendChild(qtyText); qty.appendChild(qtyEdit);
+
+                var update = document.createElement("div"); update.className = "col";
+                var edit = document.createElement("button"); edit.className="btn btn-info"; edit.textContent = "Edit";
+                var save = document.createElement("button"); save.className="btn btn-success"; save.textContent = "Save"; save.style.display = 'none';
+                update.appendChild(edit); update.appendChild(save);
+
+                var deldiv = document.createElement("div"); deldiv.className = "col";
+                var del = document.createElement("button"); del.className="btn btn-danger"; del.textContent="Delete";
+                deldiv.appendChild(del);
+
+                edit.addEventListener('click', function () {
+                    edit.style.display = 'none';
+                    save.style.display = 'block';
                 });
-                var qty = document.createElement("div");
-                qty.className = "col";
-                qty.innerHTML = elem['qty'];
+                save.addEventListener('click', function () {
+                    save.style.display = 'none';
+                    edit.style.display = 'block';
+                });
+                del.addEventListener('click', function () {
+                    //Delete Item
+                });
+
                 var li = document.createElement("li");
                 li.className = "list-group-item";
                 li.appendChild(name);
                 li.appendChild(isbn);
                 li.appendChild(qty);
-                li.appendChild(name);
-
-
+                li.appendChild(update);
+                li.appendChild(deldiv);
+                $('#bookList').append(li);
             }
         }
     </script>
