@@ -85,19 +85,18 @@ router.delete('/:isbn',function (req ,res){
 })
 
 //editbook
-/*router.post('/editbooklib',function (req,res){
+router.post('/editbooklib',function (req,res){
   console.log(req.body);
   var school_id = req.body.school_id;
   var isbn = req.body.isbn;
   var name = req.body.name;
   var totalno = req.body.totalno;
-  var
-  sqlFunctions.selectFunction("UPDATE `LibraryBook` SET `School_ID`=3,`ISBN`=1234567890,`Name`= 'Microelectronics2',`Total_Number`=20,`No_Checked_Out`=3 WHERE `ISBN`=1234567890",function(response){
+  var checkedout= req.body.checkedout;
+  sqlFunctions.selectFunction("UPDATE `LibraryBook` SET 'Name`= '"+name+"',`Total_Number`="+totalno+",`No_Checked_Out`="+checkedout+" WHERE `ISBN`="+isbn,function(response){
     res.json(response); 
   });
 })
 
-*/
 
 
 
