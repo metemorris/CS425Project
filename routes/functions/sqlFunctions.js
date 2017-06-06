@@ -4,10 +4,10 @@ const express = require("express");
 //SELECT FUNCTION
 var selectFunction = function (selectStatement,callback){
   var connection = mysql.createConnection({
-  host     : '188.121.44.185',//enter database IP
-  user     : 'metemorris',//enter your username
-  password : 'CS425Team13!',//enter your password
-  database : 'metemorris_CS425'
+  host     : '***.***.**.***',//enter database IP
+  user     : '***',//enter your username
+  password : '***',//enter your password
+  database : '***'
   });
   connection.connect(
     function(err){
